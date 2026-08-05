@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyWebLib: real Python in your browser, nothing to install</title>
+  <meta name="description" content="PyWebLib runs real Python in the browser. Turtle drawing, a beginner game library, coloured output and inline input(), with nothing to download. Free, open source and built for classrooms." />
+  <link rel="canonical" href="https://pyweblib.org/" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#4f46e5" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PyWebLib" />
+  <meta property="og:title" content="PyWebLib: real Python in your browser" />
+  <meta property="og:description" content="Turtle drawing, a beginner game library and real CPython, running in the browser tab. Nothing to install." />
+  <meta property="og:url" content="https://pyweblib.org/" />
+  <meta property="og:image" content="https://pyweblib.org/icon-512.png" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img class="logo-mark" src="/favicon.svg" alt="" width="32" height="32" />
+        <span>PyWebLib</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="header-link" href="https://play.pyweblib.org/docs/">Docs</a>
+        <a class="header-link" href="https://play.pyweblib.org/community/">Community</a>
+        <a class="header-link" href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+        <a class="btn btn-primary btn-nav" href="https://play.pyweblib.org/">Open the Playground</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Free and open source</p>
+          <h1>Real Python.<br />In your browser.<br /><span class="hl">Nothing to install.</span></h1>
+          <p class="lede">
+            Turtle drawing, a beginner game library, coloured output and working
+            <code>input()</code>. It is real CPython compiled to WebAssembly, so every
+            line runs on your own device, in the tab. No account needed to start.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/">Open the Playground</a>
+            <a class="btn btn-ghost btn-lg" href="https://play.pyweblib.org/docs/guide/">Read the guide</a>
+          </div>
+          <p class="cta-note">Works on school Chromebooks, iPads and anything with a browser.</p>
+        </div>
+
+        <div class="hero-demo" aria-hidden="true">
+          <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">main.py</span></div>
+<pre class="demo-code"><code><span class="k">import</span> game
+<span class="k">import</span> random
+
+game.window(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#0b1020"</span>)
+basket = game.sprite(<span class="s">"basket"</span>, <span class="n">240</span>, <span class="n">330</span>, size=<span class="n">52</span>)
+egg = game.sprite(<span class="s">"egg"</span>, random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>)
+board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>, <span class="n">24</span>, size=<span class="n">22</span>)
+
+<span class="k">while</span> game.playing():
+    <span class="k">if</span> game.pressed(<span class="s">"left"</span>):  basket.x = basket.x - <span class="n">8</span>
+    <span class="k">if</span> game.pressed(<span class="s">"right"</span>): basket.x = basket.x + <span class="n">8</span>
+    egg.y = egg.y + <span class="n">5</span>
+    <span class="k">if</span> basket.touches(egg):
+        game.score(<span class="n">1</span>)
+        board.content = <span class="s">"Score: "</span> + <span class="f">str</span>(game.score())
+        egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
+    <span class="k">elif</span> egg.y > <span class="n">360</span>:
+        egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
+    game.frame()</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2 class="section-title">What you get</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Turtle that actually draws</h3>
+          <p>The turtle you already teach, rendered as crisp SVG in a real window. Loops, colours, stamps and fills all behave the way the textbook says.</p>
+        </article>
+        <article class="card">
+          <h3>A game library for beginners</h3>
+          <p>Sprites, boxes, labels, collisions, sound, save games and full-screen play. Enough to build something a kid actually wants to show a friend.</p>
+        </article>
+        <article class="card">
+          <h3>Nothing to download</h3>
+          <p>No Python install, no pip, no admin password, no "it works on mine". Open a tab and the interpreter is already there.</p>
+        </article>
+        <article class="card">
+          <h3>Share what you make</h3>
+          <p>Publish a program to the community gallery, collect upvotes and comments, and put your game on its own leaderboard.</p>
+        </article>
+        <article class="card">
+          <h3>Draw your own sprites</h3>
+          <p>The asset studio lets you build SVG sprites in the browser and drop them straight into a game with <code>game.sprite(id, asset=True)</code>.</p>
+        </article>
+        <article class="card">
+          <h3>It runs on your device</h3>
+          <p>Code never leaves the tab to execute. Nothing is sent to a server to be run, which is why it stays fast and works offline once loaded.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container band-inner">
+        <div>
+          <h2>Built for classrooms</h2>
+          <p>
+            PyWebLib started as a way to teach Python to students who could not install
+            anything. Teachers can hand out a class code and a short PIN instead of asking
+            thirty kids to make accounts. Students appear publicly under an anonymous
+            handle, never their real name.
+          </p>
+          <p class="band-links">
+            <a href="https://play.pyweblib.org/docs/">Documentation</a>
+            <a href="https://github.com/SebastianHagemeyer/PyWebLib#class-codes-optional-for-schools">Set up class codes</a>
+          </p>
+        </div>
+        <div class="band-stats">
+          <div class="stat"><span class="stat-n">0</span><span class="stat-l">things to install</span></div>
+          <div class="stat"><span class="stat-n">100%</span><span class="stat-l">runs client side</span></div>
+          <div class="stat"><span class="stat-n">MIT</span><span class="stat-l">open source</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section closer">
+      <h2>Ready to write some Python?</h2>
+      <p>The editor opens with an example already in it. Press Run.</p>
+      <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/">Open the Playground</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>
+        <strong>PyWebLib</strong> is free and open source, built on
+        <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>. MIT licensed.
+      </p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://play.pyweblib.org/">Playground</a>
+        <a href="https://play.pyweblib.org/about/">About</a>
+        <a href="https://play.pyweblib.org/privacy/">Privacy</a>
+        <a href="https://play.pyweblib.org/terms/">Terms</a>
+        <a href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
