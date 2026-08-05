@@ -268,8 +268,11 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
       if (go && go.catch) go.catch(function () {});
     })();
 
-    // Hover does the work on a mouse, but touch has no hover at all, so a tap
-    // toggles the card. Enter and Space do the same from the keyboard.
+    // Where hover is real, CSS alone turns the card and this script stays out of
+    // it. Binding a click toggle there too would fight the hover rule: clicking
+    // sets .is-flipped, and moving the pointer away then leaves the card stuck
+    // face down. Touch has no hover, so there the class is the only mechanism.
+    // The keyboard always gets it, on any device.
     (function () {
       var flip = document.getElementById("flip");
       if (!flip) return;
@@ -277,7 +280,8 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
         var on = flip.classList.toggle("is-flipped");
         flip.setAttribute("aria-pressed", on ? "true" : "false");
       }
-      flip.addEventListener("click", toggle);
+      var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      if (!canHover) flip.addEventListener("click", toggle);
       flip.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
       });

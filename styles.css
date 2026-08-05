@@ -124,7 +124,14 @@ code {
   position: absolute; inset: 0; transform-style: preserve-3d;
   transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
-.flip:hover .flip-inner,
+/* Hover ONLY where hover is real. A touch browser fakes :hover on tap and keeps
+   it until you tap something else, so with a bare .flip:hover rule the first tap
+   flips the card and every tap after it does nothing: the class toggles off but
+   the phantom :hover still matches. Gating on (hover: hover) leaves touch
+   entirely to .is-flipped, which does toggle. */
+@media (hover: hover) and (pointer: fine) {
+  .flip:hover .flip-inner { transform: rotateY(180deg); }
+}
 .flip:focus-visible .flip-inner,
 .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
 
