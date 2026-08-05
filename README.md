@@ -6,11 +6,17 @@ One static page, no build step, no dependencies.
 | | |
 | --- | --- |
 | **This repo** | `pyweblib.org` - the front door |
-| **The app** | `play.pyweblib.org` - playground, docs, community, assets, leaderboards ([PyWebLib repo](https://github.com/SebastianHagemeyer/PyWebLib)) |
+| **The app** | `pyweb.qmarkapp.com` - playground, docs, community, assets, leaderboards ([PyWebLib repo](https://github.com/SebastianHagemeyer/PyWebLib)) |
 
-Kept separate because GitHub Pages allows one custom domain per repo, and the
-app is a much larger thing that deploys on its own schedule. Every link out of
-this page points at `play.pyweblib.org`.
+Kept separate because GitHub Pages allows one custom domain per repo (the
+`CNAME` file holds a single value), and the app is a much larger thing that
+deploys on its own schedule.
+
+**Outbound links point at `pyweb.qmarkapp.com`, not `play.pyweblib.org`.** The
+app has not moved yet: a freshly registered domain tends to be blocked by school
+web filters, and the students' URL has to keep working. Once `pyweblib.org` is
+confirmed reachable from a school device, the app moves to
+`play.pyweblib.org` and every link here changes with it.
 
 ## Local preview
 
