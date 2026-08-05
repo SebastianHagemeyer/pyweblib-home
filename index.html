@@ -57,7 +57,21 @@
           <p class="cta-note">Works on school Chromebooks, iPads and anything with a browser.</p>
         </div>
 
-        <div class="hero-demo" aria-hidden="true">
+        <!-- The game on the front, the code that makes it on the back. They are
+             the same program: this is the "catch the egg" example from the game
+             guide, and the gif is it running. -->
+        <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false"
+             aria-label="Show the code behind this game">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <img src="/game-eggs.gif" width="400" height="286"
+                   alt="A basket sliding left and right to catch falling eggs, with a score counting up" />
+              <span class="flip-hint">
+                <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8a6 6 0 1 0 2-4.5M2 2v3h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                See the code
+              </span>
+            </div>
+            <div class="flip-face flip-back"><div class="hero-demo" aria-hidden="true">
           <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">main.py</span></div>
 <pre class="demo-code"><code><span class="k">import</span> game
 <span class="k">import</span> random
@@ -78,6 +92,8 @@ board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>,
     <span class="k">elif</span> egg.y > <span class="n">360</span>:
         egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
     game.frame()</code></pre>
+        </div></div>
+          </div>
         </div>
       </div>
     </section>
@@ -157,5 +173,22 @@ board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>,
       </nav>
     </div>
   </footer>
+
+  <script>
+    // Hover does the work on a mouse, but touch has no hover at all, so a tap
+    // toggles the card. Enter and Space do the same from the keyboard.
+    (function () {
+      var flip = document.getElementById("flip");
+      if (!flip) return;
+      function toggle() {
+        var on = flip.classList.toggle("is-flipped");
+        flip.setAttribute("aria-pressed", on ? "true" : "false");
+      }
+      flip.addEventListener("click", toggle);
+      flip.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+      });
+    })();
+  </script>
 </body>
 </html>
