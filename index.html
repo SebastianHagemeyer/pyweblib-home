@@ -57,23 +57,41 @@
           <p class="cta-note">Works on school Chromebooks, iPads and anything with a browser.</p>
         </div>
 
-        <!-- The game on the front, the code that makes it on the back. They are
-             the same program: this is the "catch the egg" example from the game
-             guide, and the gif is it running. -->
+        <!-- The program running on the front, the code that makes it on the
+             back. One of six is picked at random per visit (see the templates
+             below), so the page is not the same page twice. Every clip was
+             filmed off the live site running that exact program. -->
         <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false"
-             aria-label="Show the code behind this game">
+             aria-label="Show the code behind this program">
           <div class="flip-inner">
             <div class="flip-face flip-front">
-              <img src="/game-eggs.gif" width="400" height="286"
-                   alt="A basket sliding left and right to catch falling eggs, with a score counting up" />
+              <video id="ex-video" width="400" height="286" autoplay muted loop
+                     playsinline preload="none"
+                     aria-label="A PyWebLib program running"></video>
               <span class="flip-hint">
                 <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8a6 6 0 1 0 2-4.5M2 2v3h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 See the code
               </span>
             </div>
-            <div class="flip-face flip-back"><div class="hero-demo" aria-hidden="true">
-          <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">main.py</span></div>
-<pre class="demo-code"><code><span class="k">import</span> game
+            <div class="flip-face flip-back">
+              <div class="hero-demo" aria-hidden="true">
+                <div class="demo-bar">
+                  <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+                  <span class="demo-name" id="ex-name">main.py</span>
+                </div>
+                <pre class="demo-code"><code id="ex-code"></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The six examples. Each is a real program: the clip is it running on
+         play.pyweblib.org, and the markup here is the same source. Kept in
+         templates so only the chosen one is ever put in the document, and only
+         its clip is fetched. -->
+    <template data-ex="catch-the-egg" data-file="catch_the_egg.py"><span class="k">import</span> game
 <span class="k">import</span> random
 
 game.window(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#0b1020"</span>)
@@ -91,12 +109,65 @@ board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>,
         egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
     <span class="k">elif</span> egg.y > <span class="n">360</span>:
         egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
-    game.frame()</code></pre>
-        </div></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    game.frame()</template>
+
+    <template data-ex="walk-the-chicken" data-file="chicken.py"><span class="k">import</span> game
+
+game.window(<span class="n">480</span>, <span class="n">360</span>)
+chicken = game.sprite(<span class="s">"chicken"</span>, <span class="n">240</span>, <span class="n">300</span>, size=<span class="n">52</span>)
+
+<span class="k">while</span> game.playing():
+    <span class="k">if</span> game.pressed(<span class="s">"left"</span>):  chicken.x = chicken.x - <span class="n">6</span>
+    <span class="k">if</span> game.pressed(<span class="s">"right"</span>): chicken.x = chicken.x + <span class="n">6</span>
+    <span class="k">if</span> game.pressed(<span class="s">"up"</span>):    chicken.y = chicken.y - <span class="n">6</span>
+    <span class="k">if</span> game.pressed(<span class="s">"down"</span>):  chicken.y = chicken.y + <span class="n">6</span>
+    game.frame()</template>
+
+    <template data-ex="bouncing-ball" data-file="bounce.py"><span class="k">import</span> game
+
+game.window(<span class="n">600</span>, <span class="n">400</span>, background=<span class="s">"#141828"</span>)
+ball = game.circle(<span class="n">300</span>, <span class="n">200</span>, <span class="n">48</span>, color=<span class="s">"#e91e63"</span>)
+dx, dy = <span class="n">4</span>, <span class="n">3</span>
+
+<span class="k">while</span> game.playing():
+    ball.x = ball.x + dx
+    ball.y = ball.y + dy
+    <span class="k">if</span> ball.x &lt; <span class="n">24</span> <span class="k">or</span> ball.x &gt; <span class="n">576</span>: dx = -dx
+    <span class="k">if</span> ball.y &lt; <span class="n">24</span> <span class="k">or</span> ball.y &gt; <span class="n">376</span>: dy = -dy
+    game.frame(<span class="n">60</span>)</template>
+
+    <template data-ex="rainbow-spiral" data-file="spiral.py"><span class="k">import</span> turtle
+
+t = turtle.Turtle()
+t.speed(<span class="n">3</span>)
+colors = [<span class="s">"#4f46e5"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#e91e63"</span>, <span class="s">"#4ade80"</span>, <span class="s">"#38bdf8"</span>]
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">120</span>):
+    t.pencolor(colors[i % <span class="f">len</span>(colors)])
+    t.pensize(<span class="n">2</span>)
+    t.forward(i * <span class="n">2</span>)
+    t.right(<span class="n">59</span>)</template>
+
+    <template data-ex="flower" data-file="flower.py"><span class="k">import</span> turtle
+
+t = turtle.Turtle()
+t.speed(<span class="n">3</span>)
+colors = [<span class="s">"#e91e63"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#4ade80"</span>, <span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>]
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">18</span>):
+    t.pencolor(colors[i % <span class="f">len</span>(colors)])
+    t.pensize(<span class="n">2</span>)
+    t.circle(<span class="n">90</span>)
+    t.right(<span class="n">20</span>)</template>
+
+    <template data-ex="square-drift" data-file="squares.py"><span class="k">import</span> turtle
+
+t = turtle.Turtle()
+t.speed(<span class="n">3</span>)
+colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#4ade80"</span>]
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">70</span>):
+    t.pencolor(colors[i % <span class="f">len</span>(colors)])
+    t.pensize(<span class="n">2</span>)
+    t.forward(i * <span class="n">4</span>)
+    t.right(<span class="n">91</span>)</template>
 
     <section class="container section">
       <h2 class="section-title">What you get</h2>
@@ -175,6 +246,28 @@ board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>,
   </footer>
 
   <script>
+    // Pick one of the six examples per visit. Only the chosen clip is given a
+    // src, so a visitor downloads one file (~40-110 KB), not all six.
+    (function () {
+      var picks = document.querySelectorAll("template[data-ex]");
+      var video = document.getElementById("ex-video");
+      var code = document.getElementById("ex-code");
+      if (!picks.length || !video || !code) return;
+
+      var pick = picks[Math.floor(Math.random() * picks.length)];
+      var slug = pick.getAttribute("data-ex");
+
+      code.innerHTML = pick.innerHTML;
+      document.getElementById("ex-name").textContent = pick.getAttribute("data-file");
+      video.poster = "/ex/" + slug + ".jpg";
+      video.src = "/ex/" + slug + ".mp4";
+      // Autoplay is refused in some setups (low power mode, a strict policy).
+      // The poster is a finished frame of the same program, so a still is a
+      // perfectly good fallback rather than a broken-looking box.
+      var go = video.play();
+      if (go && go.catch) go.catch(function () {});
+    })();
+
     // Hover does the work on a mouse, but touch has no hover at all, so a tap
     // toggles the card. Enter and Space do the same from the keyboard.
     (function () {
