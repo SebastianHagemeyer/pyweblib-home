@@ -133,8 +133,12 @@ code {
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
   border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg);
 }
-.flip-front { background: var(--code-bg); }
-.flip-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* contain, never cover: the gif is a game window with a score in the corner,
+   and cropping it eats the score and the basket. The background is the game's
+   own #0b1020, so the letterbox above and below is invisible rather than a
+   visible bar. */
+.flip-front { background: #0b1020; }
+.flip-front img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .flip-back { transform: rotateY(180deg); }
 .flip-back .hero-demo { height: 100%; border-radius: var(--radius); box-shadow: none; }
 .flip-back .demo-code {
