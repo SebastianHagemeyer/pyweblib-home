@@ -106,14 +106,17 @@ code {
    leading that box clipped the descender of "your". A one-time margin on this
    line (rather than a looser line-height on the whole h1) buys the descenders
    clearance while "Real Python." / "In your browser." keep their tight rhythm. */
-/* Its own leading, not the h1's. The highlight's background box is ~1.32em tall
-   (a font's content area is ascent+descent, which overshoots the em square at
-   this weight), so its line has to be at least that or the block overflows.
-   Putting the 1.34 here instead of on the h1 keeps "Real Python." and "In your
-   browser." on their original tight 1.12 rhythm. Measured: 1.28 is the first
-   value with no spill at any width, 1.34 leaves a little margin for other
-   fonts. */
-.hl-line { display: block; margin-top: 0.1em; line-height: 1.34; }
+/* Two separate jobs, and they are not interchangeable.
+   line-height 1.34 stops the block overflowing ITS OWN line: an inline
+     background covers the font content area (~1.32em here), so a 1.12em line
+     cannot hold it. Measured threshold 1.28; 1.34 leaves room for other fonts.
+     It lives here rather than on the h1 so "Real Python." and "In your
+     browser." keep their tight 1.12 rhythm.
+   margin-top 0.25em stops the block hitting the line ABOVE. The y of "your"
+     hangs below its own 1.12em line box, and the leading above does not push it
+     clear. Measured clearance to that descender: 0.10em -> -0.2px (cuts the y),
+     0.16em -> 2.1px, 0.25em -> 5.6px. Do not trim this to buy space. */
+.hl-line { display: block; margin-top: 0.25em; line-height: 1.34; }
 /* Full height, not a highlighter stripe. The gradient version only painted the
    bottom 38%, leaving the tops of the letters floating over the page.
 
