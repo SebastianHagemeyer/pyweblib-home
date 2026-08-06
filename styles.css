@@ -106,19 +106,31 @@ code {
    leading that box clipped the descender of "your". A one-time margin on this
    line (rather than a looser line-height on the whole h1) buys the descenders
    clearance while "Real Python." / "In your browser." keep their tight rhythm. */
-.hl-line { display: block; margin-top: 0.25em; }
+/* Its own leading, not the h1's. The highlight's background box is ~1.32em tall
+   (a font's content area is ascent+descent, which overshoots the em square at
+   this weight), so its line has to be at least that or the block overflows.
+   Putting the 1.34 here instead of on the h1 keeps "Real Python." and "In your
+   browser." on their original tight 1.12 rhythm. Measured: 1.28 is the first
+   value with no spill at any width, 1.34 leaves a little margin for other
+   fonts. */
+.hl-line { display: block; margin-top: 0.1em; line-height: 1.34; }
 /* Full height, not a highlighter stripe. The gradient version only painted the
-   bottom 38%, which left the tops of the letters floating over the page rather
-   than sitting in the block. "Nothing to install." wraps to two lines in two
-   places — narrow phones, and wide screens where the two-column hero puts the
-   copy in a ~500px column at the largest font size — and box-decoration-break
-   clones the highlight box per line. The vertical padding keeps the cloned
-   boxes overlapping into one continuous block (no strip of page between the
-   wrapped lines) while the box stays a snug ~1.3em on a single line; clearance
-   for the descenders on the line above is handled by .hl-line's margin-top. */
+   bottom 38%, leaving the tops of the letters floating over the page.
+
+   NO VERTICAL PADDING, deliberately, and this is the part that took several
+   goes to get right. An inline box paints its background over its FONT box, and
+   vertical padding on an inline element does not grow the line box: it just
+   spills outside it. So a padded highlight always pokes out of the h1 and up
+   into the line above, however the leading is tuned. Sweeping the h1 through
+   line-heights 1.12 to 1.50 shrank the spill from 11.1px to 1.3px but never
+   removed it, and every value still clipped at some width.
+
+   Without the padding the block is exactly the text's em box, which is the full
+   height that was wanted anyway, and it is contained at every width. Clearance
+   from "In your browser." above comes from .hl-line's margin-top. */
 .hl {
   background: var(--accent); color: var(--accent-ink);
-  padding: 0.12em 0.16em; border-radius: 5px; line-height: 1.14;
+  padding: 0 0.16em; border-radius: 5px;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 .lede { margin: 0 0 26px; font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
