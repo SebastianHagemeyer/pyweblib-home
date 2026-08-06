@@ -100,9 +100,13 @@ code {
   margin: 0 0 18px; font-size: clamp(2.1rem, 5vw, 3.3rem);
   line-height: 1.12; letter-spacing: -0.02em; font-weight: 800;
 }
+/* Full height, not a highlighter stripe. The gradient version only painted the
+   bottom 38%, which left the tops of the letters floating over the page rather
+   than sitting in the block. */
 .hl {
-  background: linear-gradient(transparent 62%, var(--accent) 62%);
-  padding: 0 4px; color: var(--accent-ink);
+  background: var(--accent); color: var(--accent-ink);
+  padding: 0.04em 0.16em; border-radius: 5px;
+  box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 .lede { margin: 0 0 26px; font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
 .lede code { background: rgba(79, 70, 229, 0.1); }
