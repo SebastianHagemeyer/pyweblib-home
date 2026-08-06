@@ -6,6 +6,8 @@
   <title>PyWebLib: real Python in your browser, nothing to install</title>
   <meta name="description" content="PyWebLib runs real Python in the browser. Turtle drawing, a beginner game library, coloured output and inline input(), with nothing to download. Free, open source and built for classrooms." />
   <link rel="canonical" href="https://pyweblib.org/" />
+  <meta name="application-name" content="PyWebLib" />
+  <meta name="apple-mobile-web-app-title" content="PyWebLib" />
   <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#4f46e5" />
 
@@ -15,13 +17,71 @@
   <meta property="og:description" content="Turtle drawing, a beginner game library and real CPython, running in the browser tab. Nothing to install." />
   <meta property="og:url" content="https://pyweblib.org/" />
   <meta property="og:image" content="https://pyweblib.org/icon-512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="The PyWebLib snake logo" />
   <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PyWebLib: real Python in your browser" />
+  <meta name="twitter:description" content="Turtle drawing, a beginner game library and real CPython, running in the browser tab. Nothing to install." />
+  <meta name="twitter:image" content="https://pyweblib.org/icon-512.png" />
+  <meta name="twitter:image:alt" content="The PyWebLib snake logo" />
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Structured data so search engines read "PyWebLib" as a named entity tied
+       to this domain, not just a word on the page. Helps a bare-brand query
+       ("pyweblib") resolve to the site, and feeds the site name shown in
+       results. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pyweblib.org/#website",
+        "url": "https://pyweblib.org/",
+        "name": "PyWebLib",
+        "alternateName": ["PyWeb Lib", "Py Web Lib"],
+        "description": "Real Python in your browser: turtle drawing, a beginner game library, coloured output and inline input(), with nothing to install.",
+        "publisher": { "@id": "https://pyweblib.org/#org" },
+        "inLanguage": "en"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://pyweblib.org/#org",
+        "name": "PyWebLib",
+        "url": "https://pyweblib.org/",
+        "logo": "https://pyweblib.org/icon-512.png",
+        "sameAs": [
+          "https://github.com/SebastianHagemeyer/PyWebLib"
+        ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://pyweblib.org/#app",
+        "name": "PyWebLib",
+        "url": "https://pyweblib.org/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any (web browser)",
+        "description": "Run real CPython in the browser tab. Turtle drawing, a beginner game library, coloured output and working input(). Nothing to install, free and open source.",
+        "image": "https://pyweblib.org/icon-512.png",
+        "isAccessibleForFree": true,
+        "publisher": { "@id": "https://pyweblib.org/#org" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">
