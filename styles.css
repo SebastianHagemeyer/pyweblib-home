@@ -98,24 +98,27 @@ code {
 }
 .hero h1 {
   margin: 0 0 18px; font-size: clamp(2.1rem, 5vw, 3.3rem);
-  /* Roomier than a display heading normally runs, on purpose: the last line is
-     highlighted, and box-decoration-break paints its background up into the
-     line above. A tighter leading let that yellow box clip the descender of
-     "your" on the line above it; this gives the descenders clearance. */
-  line-height: 1.3; letter-spacing: -0.02em; font-weight: 800;
+  line-height: 1.12; letter-spacing: -0.02em; font-weight: 800;
 }
+/* The highlighted last line gets extra space above it — but only there, not
+   between the first two lines. box-decoration-break paints the highlight's
+   yellow background up into the line above, and against the tight heading
+   leading that box clipped the descender of "your". A one-time margin on this
+   line (rather than a looser line-height on the whole h1) buys the descenders
+   clearance while "Real Python." / "In your browser." keep their tight rhythm. */
+.hl-line { display: block; margin-top: 0.25em; }
 /* Full height, not a highlighter stripe. The gradient version only painted the
    bottom 38%, which left the tops of the letters floating over the page rather
    than sitting in the block. "Nothing to install." wraps to two lines in two
    places — narrow phones, and wide screens where the two-column hero puts the
    copy in a ~500px column at the largest font size — and box-decoration-break
-   clones the highlight box per line. The small vertical padding keeps the cloned
+   clones the highlight box per line. The vertical padding keeps the cloned
    boxes overlapping into one continuous block (no strip of page between the
-   wrapped lines) while keeping the box a snug ~1.25em on a single line; the
-   descender clearance above the block is handled by the h1's line-height. */
+   wrapped lines) while the box stays a snug ~1.3em on a single line; clearance
+   for the descenders on the line above is handled by .hl-line's margin-top. */
 .hl {
   background: var(--accent); color: var(--accent-ink);
-  padding: 0.05em 0.16em; border-radius: 5px; line-height: 1.22;
+  padding: 0.12em 0.16em; border-radius: 5px; line-height: 1.14;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
 }
 .lede { margin: 0 0 26px; font-size: 1.08rem; color: var(--muted); max-width: 52ch; }
