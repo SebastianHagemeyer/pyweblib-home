@@ -118,9 +118,12 @@
         </div>
 
         <!-- The program running on the front, the code that makes it on the
-             back. One of six is picked at random per visit (see the templates
+             back. One of nine is picked at random per visit (see the templates
              below), so the page is not the same page twice. Every clip was
-             filmed off the live site running that exact program. -->
+             filmed off the live site running that exact program.
+             .hero-inner is a two-column grid, so the card and its button share
+             one wrapper rather than becoming a third column. -->
+        <div class="hero-shot">
         <div class="flip" id="flip" tabindex="0" role="button" aria-pressed="false"
              aria-label="Show the code behind this program">
           <div class="flip-inner">
@@ -155,14 +158,23 @@
             </div>
           </div>
         </div>
+        <!-- Outside .flip on purpose. A click inside it lands on the card and
+             turns it over instead of loading the next example, and .flip is a
+             padding box whose faces are absolutely positioned, so a static
+             child would sit below the picture rather than under the card. -->
+        <button type="button" class="what-else" id="what-else">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 8a6 6 0 1 0 2-4.5M2 2v3h3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          What else?
+        </button>
+        </div>
       </div>
     </section>
 
-    <!-- The six examples. Each is a real program: the clip is it running on
+    <!-- The nine examples. Each is a real program: the clip is it running on
          play.pyweblib.org, and the markup here is the same source. Kept in
          templates so only the chosen one is ever put in the document, and only
          its clip is fetched. -->
-    <template data-ex="catch-the-egg" data-file="catch_the_egg.py"><span class="k">import</span> game
+    <template data-ex="catch-the-egg" data-kind="game" data-file="catch_the_egg.py"><span class="k">import</span> game
 <span class="k">import</span> random
 
 game.window(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#0b1020"</span>)
@@ -182,7 +194,7 @@ board = game.label(<span class="s">"Score: 0"</span>, <span class="n">60</span>,
         egg.x, egg.y = random.randint(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>
     game.frame()</template>
 
-    <template data-ex="walk-the-chicken" data-file="chicken.py"><span class="k">import</span> game
+    <template data-ex="walk-the-chicken" data-kind="game" data-file="chicken.py"><span class="k">import</span> game
 
 game.window(<span class="n">480</span>, <span class="n">360</span>)
 chicken = game.sprite(<span class="s">"chicken"</span>, <span class="n">240</span>, <span class="n">300</span>, size=<span class="n">52</span>)
@@ -194,7 +206,7 @@ chicken = game.sprite(<span class="s">"chicken"</span>, <span class="n">240</spa
     <span class="k">if</span> game.pressed(<span class="s">"down"</span>):  chicken.y = chicken.y + <span class="n">6</span>
     game.frame()</template>
 
-    <template data-ex="bouncing-ball" data-file="bounce.py"><span class="k">import</span> game
+    <template data-ex="bouncing-ball" data-kind="game" data-file="bounce.py"><span class="k">import</span> game
 
 game.window(<span class="n">600</span>, <span class="n">400</span>, background=<span class="s">"#141828"</span>)
 ball = game.circle(<span class="n">300</span>, <span class="n">200</span>, <span class="n">48</span>, color=<span class="s">"#e91e63"</span>)
@@ -207,7 +219,7 @@ dx, dy = <span class="n">4</span>, <span class="n">3</span>
     <span class="k">if</span> ball.y &lt; <span class="n">24</span> <span class="k">or</span> ball.y &gt; <span class="n">376</span>: dy = -dy
     game.frame(<span class="n">60</span>)</template>
 
-    <template data-ex="rainbow-spiral" data-file="spiral.py"><span class="k">import</span> turtle
+    <template data-ex="rainbow-spiral" data-kind="turtle" data-file="spiral.py"><span class="k">import</span> turtle
 
 t = turtle.Turtle()
 t.speed(<span class="n">3</span>)
@@ -218,7 +230,7 @@ colors = [<span class="s">"#4f46e5"</span>, <span class="s">"#ffd43b"</span>, <s
     t.forward(i * <span class="n">2</span>)
     t.right(<span class="n">59</span>)</template>
 
-    <template data-ex="flower" data-file="flower.py"><span class="k">import</span> turtle
+    <template data-ex="flower" data-kind="turtle" data-file="flower.py"><span class="k">import</span> turtle
 
 t = turtle.Turtle()
 t.speed(<span class="n">3</span>)
@@ -229,7 +241,7 @@ colors = [<span class="s">"#e91e63"</span>, <span class="s">"#ffd43b"</span>, <s
     t.circle(<span class="n">90</span>)
     t.right(<span class="n">20</span>)</template>
 
-    <template data-ex="square-drift" data-file="squares.py"><span class="k">import</span> turtle
+    <template data-ex="square-drift" data-kind="turtle" data-file="squares.py"><span class="k">import</span> turtle
 
 t = turtle.Turtle()
 t.speed(<span class="n">3</span>)
@@ -239,6 +251,33 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
     t.pensize(<span class="n">2</span>)
     t.forward(i * <span class="n">4</span>)
     t.right(<span class="n">91</span>)</template>
+
+    <!-- text: the console. input(), colour and time.sleep, none of which the
+         game or turtle clips ever show. -->
+    <template data-ex="say-hello" data-kind="text" data-file="hello.py">name = <span class="f">input</span>(<span class="s">"What is your name? "</span>)
+
+<span class="f">print</span>(<span class="s">"Hello, "</span> + name + <span class="s">"!"</span>, col=<span class="s">"#4ade80"</span>)
+<span class="f">print</span>(<span class="s">"That was real input()."</span>, col=<span class="s">"#38bdf8"</span>)
+<span class="f">print</span>(<span class="s">"No install. It ran in this tab."</span>, col=<span class="s">"#a78bfa"</span>)</template>
+
+    <template data-ex="sine-wave" data-kind="text" data-file="wave.py"><span class="k">import</span> math
+<span class="k">import</span> time
+
+h = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"How tall should the wave be? "</span>))
+
+<span class="k">for</span> t <span class="k">in</span> <span class="f">range</span>(<span class="n">80</span>):
+    x = <span class="f">int</span>(h + math.sin(t / <span class="n">1.5</span>) * h)
+    <span class="f">print</span>(<span class="s">" "</span> * x + <span class="s">"*"</span>, col=<span class="s">"#38bdf8"</span>)
+    time.sleep(<span class="n">0.05</span>)</template>
+
+    <template data-ex="colour-bars" data-kind="text" data-file="colours.py"><span class="k">import</span> time
+
+colors = [<span class="s">"#ef4444"</span>, <span class="s">"#f59e0b"</span>, <span class="s">"#ffd43b"</span>,
+          <span class="s">"#4ade80"</span>, <span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>]
+
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">30</span>):
+    <span class="f">print</span>(<span class="s">"#"</span> * (<span class="n">2</span> + i), col=colors[i % <span class="n">6</span>])
+    time.sleep(<span class="n">0.05</span>)</template>
 
     <section class="container section">
       <h2 class="section-title">What you get</h2>
@@ -317,38 +356,61 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
   </footer>
 
   <script>
-    // Pick one of the six examples per visit. Only the chosen clip is given a
-    // src, so a visitor downloads one file (~40-110 KB), not all six.
+    // One of nine examples per visit, and "What else?" moves to another. Only
+    // the shown clip is ever given a src, so a visitor downloads one file
+    // (~20-150 KB) however many times they press the button, not all nine.
     (function () {
-      var picks = document.querySelectorAll("template[data-ex]");
+      var picks = [].slice.call(document.querySelectorAll("template[data-ex]"));
       var video = document.getElementById("ex-video");
       var code = document.getElementById("ex-code");
+      var flip = document.getElementById("flip");
       if (!picks.length || !video || !code) return;
 
-      var pick = picks[Math.floor(Math.random() * picks.length)];
-      var slug = pick.getAttribute("data-ex");
+      // The frame is labelled the way the Playground labels that panel, so the
+      // card matches what you get when you click through and run the program.
+      var LABEL = { game: "Game window", turtle: "Turtle window", text: "Output" };
+      var current = null;
 
-      code.innerHTML = pick.innerHTML;
-      document.getElementById("ex-name").textContent = pick.getAttribute("data-file");
-      // Label the frame the way the Playground labels it, so the card matches
-      // what you get when you click through and run the same program.
-      var win = document.getElementById("ex-window");
-      if (win) {
-        // .content.textContent, not .textContent or .innerHTML. A <template>
-        // keeps its children in a separate fragment, so .textContent on the
-        // element itself is always "", and .innerHTML has the highlighting
-        // spans wedged between the words ("<span>import</span> turtle").
-        var src = pick.content ? pick.content.textContent : pick.innerHTML;
-        win.textContent = /\bimport\s+turtle\b/.test(src)
-          ? "Turtle window" : "Game window";
+      function show(pick) {
+        current = pick;
+        var slug = pick.getAttribute("data-ex");
+        var kind = pick.getAttribute("data-kind") || "game";
+        code.innerHTML = pick.innerHTML;
+        document.getElementById("ex-name").textContent = pick.getAttribute("data-file");
+        var win = document.getElementById("ex-window");
+        if (win) win.textContent = LABEL[kind] || LABEL.game;
+        video.poster = "/ex/" + slug + ".jpg";
+        video.src = "/ex/" + slug + ".mp4";
+        // Autoplay is refused in some setups (low power mode, a strict policy).
+        // The poster is a finished frame of the same program, so a still is a
+        // perfectly good fallback rather than a broken-looking box.
+        var go = video.play();
+        if (go && go.catch) go.catch(function () {});
       }
-      video.poster = "/ex/" + slug + ".jpg";
-      video.src = "/ex/" + slug + ".mp4";
-      // Autoplay is refused in some setups (low power mode, a strict policy).
-      // The poster is a finished frame of the same program, so a still is a
-      // perfectly good fallback rather than a broken-looking box.
-      var go = video.play();
-      if (go && go.catch) go.catch(function () {});
+
+      // Prefer a different KIND, so pressing the button shows you something new
+      // in character and not a third spiral. Falls back to any other example if
+      // that is somehow empty, and only then to the same one.
+      function another() {
+        var kind = current && current.getAttribute("data-kind");
+        var pool = picks.filter(function (p) {
+          return p !== current && p.getAttribute("data-kind") !== kind;
+        });
+        if (!pool.length) pool = picks.filter(function (p) { return p !== current; });
+        if (!pool.length) pool = picks;
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      show(picks[Math.floor(Math.random() * picks.length)]);
+
+      var btn = document.getElementById("what-else");
+      if (btn) {
+        btn.addEventListener("click", function () {
+          // Always land on the picture, never on the back of a flipped card.
+          if (flip) flip.classList.remove("is-flipped");
+          show(another());
+        });
+      }
     })();
 
     // Where hover is real, CSS alone turns the card and this script stays out of

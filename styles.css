@@ -204,6 +204,35 @@ code {
   line-height: 1.45; padding: 14px 18px 16px;
 }
 
+/* One grid cell holding the card and its button, so .hero-inner stays a clean
+   two-column layout. */
+/* Stretch, not centre: .flip has no content to size to (its faces are
+   absolutely positioned) and its height is a percentage of its own width, so
+   centring would collapse it to nothing. The button centres itself instead. */
+.hero-shot { display: flex; flex-direction: column; }
+
+/* "What else?" sits under the card and swaps in another example, preferring a
+   different kind. Outside .flip, because a click inside it turns the card. */
+.what-else {
+  display: inline-flex; align-items: center; align-self: center; gap: 8px;
+  margin: 16px 0 0; padding: 9px 16px;
+  background: transparent; color: var(--muted);
+  border: 1px solid rgba(15, 23, 42, 0.16); border-radius: 999px;
+  font: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.what-else svg { flex: 0 0 auto; transition: transform .35s ease; }
+.what-else:hover {
+  color: var(--primary); border-color: var(--primary);
+  background: rgba(79, 70, 229, 0.06);
+}
+.what-else:hover svg { transform: rotate(-180deg); }
+.what-else:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .what-else svg { transition: none; }
+  .what-else:hover svg { transform: none; }
+}
+
 .flip-hint {
   position: absolute; right: 12px; bottom: 12px;
   display: inline-flex; align-items: center; gap: 6px;
