@@ -334,7 +334,12 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
       // what you get when you click through and run the same program.
       var win = document.getElementById("ex-window");
       if (win) {
-        win.textContent = /\bimport turtle\b/.test(pick.textContent)
+        // .content.textContent, not .textContent or .innerHTML. A <template>
+        // keeps its children in a separate fragment, so .textContent on the
+        // element itself is always "", and .innerHTML has the highlighting
+        // spans wedged between the words ("<span>import</span> turtle").
+        var src = pick.content ? pick.content.textContent : pick.innerHTML;
+        win.textContent = /\bimport\s+turtle\b/.test(src)
           ? "Turtle window" : "Game window";
       }
       video.poster = "/ex/" + slug + ".jpg";
