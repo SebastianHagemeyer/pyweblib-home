@@ -144,12 +144,17 @@ code {
 /* Flip card: the game running on the front, the program that makes it on the
    back. Both faces are absolutely positioned inside a fixed aspect ratio, so
    they are exactly the same size and the card cannot jump as it turns. */
-/* Taller than the gif's own 400x286 so the whole program fits on the back
-   without shrinking to nothing. The gif is object-fit: cover, so it fills the
-   extra height by cropping a little rather than letterboxing. */
+/* Height is the title bar plus a 4:3 video, and a percentage padding-top
+   resolves against the WIDTH, so calc(75% + var(--shot-bar)) is exact at every
+   card width. A fixed aspect-ratio could not be: the bar is a constant number
+   of pixels and the card is not, so the two drifted apart as the hero resized
+   and the video area stopped matching the clip. Both faces are absolutely
+   positioned inside this box, so they stay the same size and the card cannot
+   jump as it turns. */
 .flip {
+  --shot-bar: 35px;
   perspective: 1400px; cursor: pointer; border-radius: var(--radius);
-  aspect-ratio: 400 / 325; position: relative;
+  position: relative; padding-top: calc(75% + var(--shot-bar));
 }
 .flip:focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
 .flip-inner {
@@ -172,13 +177,26 @@ code {
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
   border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg);
 }
-/* contain, never cover: the gif is a game window with a score in the corner,
-   and cropping it eats the score and the basket. The background is the game's
-   own #0b1020, so the letterbox above and below is invisible rather than a
-   visible bar. */
+/* The clip is now the canvas and nothing else, every one of them 4:3, and the
+   window frame around it is the .shot markup below. Card height is bar + a 4:3
+   video, so the video area matches the clip exactly and there is no letterbox
+   to hide and nothing to crop. */
 .flip-front { background: #0b1020; }
-.flip-front img,
-.flip-front video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.shot { display: flex; flex-direction: column; height: 100%; }
+.shot-bar {
+  /* Pinned, because .flip reserves exactly this much room for it. */
+  flex: 0 0 auto; height: var(--shot-bar, 35px); box-sizing: border-box;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px; padding: 0 12px; background: #151a2e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem; color: #9aa3c0; letter-spacing: 0.01em;
+}
+.shot-fs { color: #6f7899; flex: 0 0 auto; }
+.shot video {
+  flex: 1 1 auto; min-height: 0; width: 100%; height: 100%;
+  object-fit: cover; display: block; background: #0b1020;
+}
 .flip-back { transform: rotateY(180deg); }
 .flip-back .hero-demo { height: 100%; border-radius: var(--radius); box-shadow: none; }
 .flip-back .demo-code {

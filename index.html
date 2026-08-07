@@ -125,9 +125,20 @@
              aria-label="Show the code behind this program">
           <div class="flip-inner">
             <div class="flip-face flip-front">
-              <video id="ex-video" width="400" height="286" autoplay muted loop
-                     playsinline preload="none"
-                     aria-label="A PyWebLib program running"></video>
+              <!-- The window frame is drawn here, not filmed. The clips used to
+                   include the panel chrome, which baked in the panel's rounded
+                   corners over a light page: four white flecks in the corners
+                   on this dark card. Chrome in CSS stays crisp, is identical
+                   for every clip, and lets every clip be one 4:3 size. -->
+              <div class="shot">
+                <div class="shot-bar">
+                  <span class="shot-title" id="ex-window">Game window</span>
+                  <svg class="shot-fs" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <video id="ex-video" width="960" height="720" autoplay muted loop
+                       playsinline preload="none"
+                       aria-label="A PyWebLib program running"></video>
+              </div>
               <span class="flip-hint">
                 <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M2 8a6 6 0 1 0 2-4.5M2 2v3h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 See the code
@@ -319,6 +330,13 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
 
       code.innerHTML = pick.innerHTML;
       document.getElementById("ex-name").textContent = pick.getAttribute("data-file");
+      // Label the frame the way the Playground labels it, so the card matches
+      // what you get when you click through and run the same program.
+      var win = document.getElementById("ex-window");
+      if (win) {
+        win.textContent = /\bimport turtle\b/.test(pick.textContent)
+          ? "Turtle window" : "Game window";
+      }
       video.poster = "/ex/" + slug + ".jpg";
       video.src = "/ex/" + slug + ".mp4";
       // Autoplay is refused in some setups (low power mode, a strict policy).
