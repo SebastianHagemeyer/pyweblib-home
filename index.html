@@ -255,29 +255,34 @@ colors = [<span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>, <s
     <!-- text: the console. input(), colour and time.sleep, none of which the
          game or turtle clips ever show. -->
     <template data-ex="say-hello" data-kind="text" data-file="hello.py">name = <span class="f">input</span>(<span class="s">"What is your name? "</span>)
+age = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"How old are you? "</span>))
 
-<span class="f">print</span>(<span class="s">"Hello, "</span> + name + <span class="s">"!"</span>, col=<span class="s">"#4ade80"</span>)
-<span class="f">print</span>(<span class="s">"That was real input()."</span>, col=<span class="s">"#38bdf8"</span>)
-<span class="f">print</span>(<span class="s">"No install. It ran in this tab."</span>, col=<span class="s">"#a78bfa"</span>)</template>
+seconds = age * <span class="n">365</span> * <span class="n">24</span> * <span class="n">60</span> * <span class="n">60</span>
+
+<span class="f">print</span>(<span class="s">"Hi "</span> + name + <span class="s">"!"</span>, col=<span class="s">"#4ade80"</span>)
+<span class="f">print</span>(<span class="s">"You have been alive for"</span>, col=<span class="s">"#a78bfa"</span>)
+<span class="f">print</span>(<span class="f">str</span>(seconds) + <span class="s">" seconds."</span>, col=<span class="s">"#38bdf8"</span>)</template>
 
     <template data-ex="sine-wave" data-kind="text" data-file="wave.py"><span class="k">import</span> math
 <span class="k">import</span> time
 
-h = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"How tall should the wave be? "</span>))
+w = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"How wide should the wave be? "</span>))
 
-<span class="k">for</span> t <span class="k">in</span> <span class="f">range</span>(<span class="n">80</span>):
-    x = <span class="f">int</span>(h + math.sin(t / <span class="n">1.5</span>) * h)
-    <span class="f">print</span>(<span class="s">" "</span> * x + <span class="s">"*"</span>, col=<span class="s">"#38bdf8"</span>)
-    time.sleep(<span class="n">0.05</span>)</template>
+<span class="k">for</span> t <span class="k">in</span> <span class="f">range</span>(<span class="n">120</span>):
+    <span class="f">clear</span>()
+    <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(<span class="n">13</span>):
+        x = <span class="f">int</span>(w + math.sin(y / <span class="n">2</span> + t / <span class="n">3</span>) * w)
+        <span class="f">print</span>(<span class="s">" "</span> * x + <span class="s">"*"</span>, col=<span class="s">"#38bdf8"</span>)
+    time.sleep(<span class="n">0.07</span>)</template>
 
     <template data-ex="colour-bars" data-kind="text" data-file="colours.py"><span class="k">import</span> time
 
 colors = [<span class="s">"#ef4444"</span>, <span class="s">"#f59e0b"</span>, <span class="s">"#ffd43b"</span>,
           <span class="s">"#4ade80"</span>, <span class="s">"#38bdf8"</span>, <span class="s">"#a78bfa"</span>]
 
-<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">30</span>):
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">26</span>):
     <span class="f">print</span>(<span class="s">"#"</span> * (<span class="n">2</span> + i), col=colors[i % <span class="n">6</span>])
-    time.sleep(<span class="n">0.05</span>)</template>
+    time.sleep(<span class="n">0.3</span>)</template>
 
     <section class="container section">
       <h2 class="section-title">What you get</h2>
