@@ -284,6 +284,28 @@ colors = [<span class="s">"#ef4444"</span>, <span class="s">"#f59e0b"</span>, <s
     <span class="f">print</span>(<span class="s">"#"</span> * (<span class="n">2</span> + i), col=colors[i % <span class="n">6</span>])
     time.sleep(<span class="n">0.3</span>)</template>
 
+    <template data-ex="christmas-tree" data-kind="text" data-file="tree.py"><span class="k">import</span> random
+<span class="k">import</span> time
+
+n = <span class="f">int</span>(<span class="f">input</span>(<span class="s">"Tree height (try 8): "</span>))
+GREEN = <span class="s">'#0aa84a'</span>
+BROWN = <span class="s">'#7b4a1a'</span>
+ORNAMENTS = [<span class="s">'#ff2b2b'</span>, <span class="s">'#ffd400'</span>, <span class="s">'#ff5cb0'</span>, <span class="s">'#3aaeff'</span>]
+MID = <span class="n">20</span>
+
+<span class="k">for</span> frame <span class="k">in</span> <span class="f">range</span>(<span class="n">60</span>):
+    <span class="f">clear</span>()
+    <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(n):
+        <span class="f">print</span>(<span class="s">' '</span> * (MID - i), col=GREEN, end=<span class="s">''</span>)
+        <span class="k">for</span> j <span class="k">in</span> <span class="f">range</span>(<span class="n">2</span> * i + <span class="n">1</span>):
+            <span class="k">if</span> <span class="n">0</span> &lt; j &lt; <span class="n">2</span> * i <span class="k">and</span> random.random() &lt; <span class="n">0.25</span>:
+                <span class="f">print</span>(<span class="s">'o'</span>, col=random.choice(ORNAMENTS), end=<span class="s">''</span>)
+            <span class="k">else</span>:
+                <span class="f">print</span>(<span class="s">'*'</span>, col=GREEN, end=<span class="s">''</span>)
+        <span class="f">print</span>(col=GREEN)
+    <span class="f">print</span>(<span class="s">' '</span> * (MID - <span class="n">1</span>) + <span class="s">'|||'</span>, col=BROWN)
+    time.sleep(<span class="n">0.35</span>)</template>
+
     <section class="container section">
       <h2 class="section-title">What you get</h2>
       <div class="grid">
