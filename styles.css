@@ -22,6 +22,32 @@
   --radius-sm: 8px;
 }
 
+/* Dark theme, driven entirely by the OS setting. No toggle by design: it just
+   follows the system, exactly like the app at play.pyweblib.org. Same token
+   names as the light palette above, so every rule that reads a var() flips
+   for free; only the handful of tokens that need to change are redefined. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #080b18;
+    --surface: #141a2e;
+    --text: #e8eaf3;
+    --muted: #9aa3bd;
+    --border: #262d44;
+    --primary: #818cf8;
+    --code-bg: #0c0f22;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.55);
+  }
+  /* The filled button reads --primary for its fill and pairs it with white
+     text. On a dark page --primary is lightened for legible links, which is
+     too pale behind white, so the button keeps its own saturated indigo. */
+  .btn-primary { background: #4f46e5; }
+  .btn-primary:hover { background: #4338ca; }
+  /* The ink-tinted hairline vanishes on a dark page; lift it to a light one. */
+  .what-else { border-color: rgba(255, 255, 255, 0.16); }
+}
+
 * { box-sizing: border-box; }
 
 body {
