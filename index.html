@@ -8,8 +8,9 @@
   <link rel="canonical" href="https://pyweblib.org/" />
   <meta name="application-name" content="PyWebLib" />
   <meta name="apple-mobile-web-app-title" content="PyWebLib" />
-  <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#4f46e5" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#080b18" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PyWebLib" />
@@ -311,7 +312,7 @@ MID = <span class="n">20</span>
       <div class="grid">
         <article class="card">
           <h3>Turtle that actually draws</h3>
-          <p>The turtle you already teach, rendered as crisp SVG in a real window. Loops, colours, stamps and fills all behave the way the textbook says.</p>
+          <p>The same turtle you already teach, drawn as crisp SVG in a real window. Loops, colours, stamps and fills all behave the way the textbook says.</p>
         </article>
         <article class="card">
           <h3>A game library for beginners</h3>
@@ -341,10 +342,9 @@ MID = <span class="n">20</span>
         <div>
           <h2>Built for classrooms</h2>
           <p>
-            PyWebLib started as a way to teach Python to students who could not install
-            anything. Teachers can hand out a class code and a short PIN instead of asking
-            thirty kids to make accounts. Students appear publicly under an anonymous
-            handle, never their real name.
+            Hand out a class code and a short PIN &mdash; no thirty separate accounts
+            to set up. Students appear publicly under an anonymous handle, never their
+            real name.
           </p>
           <p class="band-links">
             <a href="https://play.pyweblib.org/docs/">Documentation</a>
