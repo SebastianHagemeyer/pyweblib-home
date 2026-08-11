@@ -222,6 +222,11 @@ code {
 .shot video {
   flex: 1 1 auto; min-height: 0; width: 100%; height: 100%;
   object-fit: cover; display: block; background: #0b1020;
+  /* Card height is calc(75% + 35px), so the video's computed height lands on a
+     fractional pixel and its bottom edge stops a hair short of the rounded
+     corner, letting a light seam show under the clip. Overshoot by a pixel; the
+     face's overflow: hidden + border-radius clips it clean. */
+  margin-bottom: -1px;
 }
 .flip-back { transform: rotateY(180deg); }
 .flip-back .hero-demo { height: 100%; border-radius: var(--radius); box-shadow: none; }
