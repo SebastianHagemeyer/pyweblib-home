@@ -119,7 +119,7 @@
         </div>
 
         <!-- The program running on the front, the code that makes it on the
-             back. One of nine is picked at random per visit (see the templates
+             back. One is picked at random per visit (see the templates
              below), so the page is not the same page twice. Every clip was
              filmed off the live site running that exact program.
              .hero-inner is a two-column grid, so the card and its button share
@@ -171,7 +171,7 @@
       </div>
     </section>
 
-    <!-- The nine examples. Each is a real program: the clip is it running on
+    <!-- The examples. Each is a real program: the clip is it running on
          play.pyweblib.org, and the markup here is the same source. Kept in
          templates so only the chosen one is ever put in the document, and only
          its clip is fetched. -->
@@ -307,6 +307,40 @@ MID = <span class="n">20</span>
     <span class="f">print</span>(<span class="s">' '</span> * (MID - <span class="n">1</span>) + <span class="s">'|||'</span>, col=BROWN)
     time.sleep(<span class="n">0.35</span>)</template>
 
+    <template data-ex="matrix-rain" data-kind="text" data-file="matrix.py"><span class="k">import</span> random
+<span class="k">import</span> time
+
+CHARS = <span class="s">"01&lt;&gt;/\\|=+*[]{}#ABCDEFHKMNPRXZ"</span>
+TRAIL = [<span class="s">'#daffe8'</span>, <span class="s">'#9dffc4'</span>, <span class="s">'#5ff08f'</span>, <span class="s">'#4ade80'</span>,
+         <span class="s">'#2fce6d'</span>, <span class="s">'#22c55e'</span>, <span class="s">'#18a24b'</span>, <span class="s">'#137a39'</span>, <span class="s">'#0f5c2b'</span>]
+COLS = <span class="n">40</span>
+ROWS = <span class="n">15</span>
+
+grid = [[random.choice(CHARS) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS)] <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(ROWS)]
+head = [random.randint(-ROWS, <span class="n">0</span>) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS)]
+tail = [random.randint(<span class="n">6</span>, <span class="n">9</span>) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS)]
+phase = [random.randint(<span class="n">0</span>, <span class="n">1</span>) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS)]
+
+<span class="k">for</span> frame <span class="k">in</span> <span class="f">range</span>(<span class="n">90</span>):
+    <span class="f">clear</span>()
+    <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(ROWS):
+        <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS):
+            dist = head[x] - y
+            <span class="k">if</span> <span class="n">0</span> &lt;= dist &lt; tail[x]:
+                <span class="f">print</span>(grid[y][x], col=TRAIL[<span class="f">min</span>(dist, <span class="f">len</span>(TRAIL) - <span class="n">1</span>)], end=<span class="s">''</span>)
+            <span class="k">else</span>:
+                <span class="f">print</span>(<span class="s">' '</span>, end=<span class="s">''</span>)
+        <span class="f">print</span>()
+    <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(COLS):
+        <span class="k">if</span> frame % <span class="n">2</span> == phase[x]:
+            head[x] = head[x] + <span class="n">1</span>
+            <span class="k">if</span> <span class="n">0</span> &lt;= head[x] &lt; ROWS:
+                grid[head[x]][x] = random.choice(CHARS)
+            <span class="k">if</span> head[x] - tail[x] &gt; ROWS + <span class="n">3</span>:
+                head[x] = <span class="n">0</span>
+                tail[x] = random.randint(<span class="n">6</span>, <span class="n">9</span>)
+    time.sleep(<span class="n">0.05</span>)</template>
+
     <section class="container section">
       <h2 class="section-title">What you get</h2>
       <div class="grid">
@@ -383,9 +417,9 @@ MID = <span class="n">20</span>
   </footer>
 
   <script>
-    // One of nine examples per visit, and "What else?" moves to another. Only
+    // One example per visit, and "What else?" moves to another. Only
     // the shown clip is ever given a src, so a visitor downloads one file
-    // (~20-150 KB) however many times they press the button, not all nine.
+    // (~20-350 KB) however many times they press the button, not all of them.
     (function () {
       var picks = [].slice.call(document.querySelectorAll("template[data-ex]"));
       var video = document.getElementById("ex-video");
