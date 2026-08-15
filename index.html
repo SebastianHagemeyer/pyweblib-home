@@ -119,7 +119,7 @@
         </div>
 
         <!-- The program running on the front, the code that makes it on the
-             back. One of nine is picked at random per visit (see the templates
+             back. One of ten is picked at random per visit (see the templates
              below), so the page is not the same page twice. Every clip was
              filmed off the live site running that exact program.
              .hero-inner is a two-column grid, so the card and its button share
@@ -171,7 +171,7 @@
       </div>
     </section>
 
-    <!-- The nine examples. Each is a real program: the clip is it running on
+    <!-- The ten examples. Each is a real program: the clip is it running on
          play.pyweblib.org, and the markup here is the same source. Kept in
          templates so only the chosen one is ever put in the document, and only
          its clip is fetched. -->
@@ -307,6 +307,33 @@ MID = <span class="n">20</span>
     <span class="f">print</span>(<span class="s">' '</span> * (MID - <span class="n">1</span>) + <span class="s">'|||'</span>, col=BROWN)
     time.sleep(<span class="n">0.35</span>)</template>
 
+    <!-- The blanks ride along with the next coloured digit rather than being
+         printed on their own. Plain print() is held until the end of the line,
+         so spaces sent separately would all land after the digits instead of
+         between them, and a print per cell (forty-five a row) would leave the
+         rain crawling. -->
+    <template data-ex="matrix-rain" data-kind="text" data-file="rain.py"><span class="k">import</span> random
+<span class="k">import</span> time
+FADE = [<span class="s">"#fff"</span>, <span class="s">"#dfe"</span>, <span class="s">"#9fc"</span>, <span class="s">"#6f9"</span>, <span class="s">"#3e7"</span>, <span class="s">"#2c6"</span>,
+        <span class="s">"#1b5"</span>, <span class="s">"#0a4"</span>, <span class="s">"#083"</span>, <span class="s">"#062"</span>, <span class="s">"#051"</span>, <span class="s">"#031"</span>]
+W, H = <span class="n">45</span>, <span class="n">12</span>
+start = [random.randint(<span class="n">0</span>, <span class="n">59</span>) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(W)]
+speed = [random.choice([<span class="n">0.3</span>, <span class="n">0.5</span>, <span class="n">0.7</span>, <span class="n">0.9</span>]) <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(W)]
+<span class="k">for</span> frame <span class="k">in</span> <span class="f">range</span>(<span class="n">220</span>):
+    <span class="f">clear</span>()
+    <span class="k">for</span> y <span class="k">in</span> <span class="f">range</span>(H):
+        gap = <span class="n">0</span>
+        <span class="k">for</span> x <span class="k">in</span> <span class="f">range</span>(W):
+            depth = <span class="f">int</span>((start[x] + frame * speed[x]) % <span class="n">60</span>) - y
+            <span class="k">if</span> <span class="n">0</span> &lt;= depth &lt; <span class="f">len</span>(FADE):
+                bit = <span class="s">" "</span> * gap + random.choice(<span class="s">"01"</span>)
+                <span class="f">print</span>(bit, col=FADE[depth], end=<span class="s">""</span>)
+                gap = <span class="n">0</span>
+            <span class="k">else</span>:
+                gap = gap + <span class="n">1</span>
+        <span class="f">print</span>()
+    time.sleep(<span class="n">0.03</span>)</template>
+
     <section class="container section">
       <h2 class="section-title">What you get</h2>
       <div class="grid">
@@ -383,9 +410,9 @@ MID = <span class="n">20</span>
   </footer>
 
   <script>
-    // One of nine examples per visit, and "What else?" moves to another. Only
+    // One of ten examples per visit, and "What else?" moves to another. Only
     // the shown clip is ever given a src, so a visitor downloads one file
-    // (~20-150 KB) however many times they press the button, not all nine.
+    // (~20-170 KB) however many times they press the button, not all ten.
     (function () {
       var picks = [].slice.call(document.querySelectorAll("template[data-ex]"));
       var video = document.getElementById("ex-video");
