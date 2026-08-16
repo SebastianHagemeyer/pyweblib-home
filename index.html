@@ -119,9 +119,10 @@
         </div>
 
         <!-- The program running on the front, the code that makes it on the
-             back. One of ten is picked at random per visit (see the templates
-             below), so the page is not the same page twice. Every clip was
-             filmed off the live site running that exact program.
+             back. One of eleven is picked at random per visit (see the
+             templates below), so the page is not the same page twice, and
+             "What else?" walks the rest of them a kind at a time. Every clip
+             was filmed off the live site running that exact program.
              .hero-inner is a two-column grid, so the card and its button share
              one wrapper rather than becoming a third column. -->
         <div class="hero-shot">
@@ -171,7 +172,7 @@
       </div>
     </section>
 
-    <!-- The ten examples. Each is a real program: the clip is it running on
+    <!-- The eleven examples. Each is a real program: the clip is it running on
          play.pyweblib.org, and the markup here is the same source. Kept in
          templates so only the chosen one is ever put in the document, and only
          its clip is fetched. -->
@@ -410,9 +411,9 @@ speed = [random.choice([<span class="n">0.3</span>, <span class="n">0.5</span>, 
   </footer>
 
   <script>
-    // One of ten examples per visit, and "What else?" moves to another. Only
-    // the shown clip is ever given a src, so a visitor downloads one file
-    // (~20-170 KB) however many times they press the button, not all ten.
+    // One of the examples per visit, and "What else?" walks the rest of them.
+    // Only the shown clip is ever given a src, so a visitor downloads one file
+    // (~20-170 KB) per press, not all eleven up front.
     (function () {
       var picks = [].slice.call(document.querySelectorAll("template[data-ex]"));
       var video = document.getElementById("ex-video");
@@ -442,20 +443,63 @@ speed = [random.choice([<span class="n">0.3</span>, <span class="n">0.5</span>, 
         if (go && go.catch) go.catch(function () {});
       }
 
-      // Prefer a different KIND, so pressing the button shows you something new
-      // in character and not a third spiral. Falls back to any other example if
-      // that is somehow empty, and only then to the same one.
-      function another() {
-        var kind = current && current.getAttribute("data-kind");
-        var pool = picks.filter(function (p) {
-          return p !== current && p.getAttribute("data-kind") !== kind;
-        });
-        if (!pool.length) pool = picks.filter(function (p) { return p !== current; });
-        if (!pool.length) pool = picks;
-        return pool[Math.floor(Math.random() * pool.length)];
+      function kindOf(pick) { return pick.getAttribute("data-kind") || "game"; }
+
+      function shuffle(list) {
+        for (var i = list.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var swap = list[i]; list[i] = list[j]; list[j] = swap;
+        }
+        return list;
       }
 
-      show(picks[Math.floor(Math.random() * picks.length)]);
+      // A round is every example once, ordered so the kind changes at every
+      // step: game, text, turtle, text, game, and so on. Keep pressing and you
+      // are walked through the lot rather than being dropped somewhere random
+      // each time, so eleven presses is the whole set and nothing is a
+      // surprise twice. afterKind is what is on screen as the round starts, so
+      // the join between rounds alternates like the rest of it does.
+      //
+      // Greedy, always taking from the largest group that is not the kind just
+      // played. Taking any old different kind would leave the commonest kind
+      // (text: five of the eleven) stranded in a run at the end with nothing
+      // to separate it; drawing down the big group first is what stops that.
+      // Within a kind the choice is the shuffle's, so which spiral you get and
+      // in what order still differs per visit.
+      function buildRound(pool, afterKind) {
+        var left = shuffle(pool.slice());
+        var order = [];
+        var prev = afterKind;
+        while (left.length) {
+          var tally = {};
+          left.forEach(function (p) { tally[kindOf(p)] = (tally[kindOf(p)] || 0) + 1; });
+          var at = -1;
+          for (var i = 0; i < left.length; i++) {
+            if (kindOf(left[i]) === prev) continue;
+            if (at < 0 || tally[kindOf(left[i])] > tally[kindOf(left[at])]) at = i;
+          }
+          // Only the played kind is left, which one lopsided example list would
+          // do. Showing it beats stopping the round short of the full set.
+          if (at < 0) at = 0;
+          prev = kindOf(left[at]);
+          order.push(left.splice(at, 1)[0]);
+        }
+        return order;
+      }
+
+      var queue = [];
+
+      function another() {
+        if (!queue.length) queue = buildRound(picks, current && kindOf(current));
+        return queue.shift();
+      }
+
+      // The first one is still a coin toss, so the page is not the same page
+      // twice; the round behind it is the other ten, and every round after
+      // that is all eleven.
+      var first = picks[Math.floor(Math.random() * picks.length)];
+      show(first);
+      queue = buildRound(picks.filter(function (p) { return p !== first; }), kindOf(first));
 
       var btn = document.getElementById("what-else");
       if (btn) {
