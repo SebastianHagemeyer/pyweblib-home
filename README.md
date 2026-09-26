@@ -37,3 +37,9 @@ Design tokens in `styles.css` are copied from the app's stylesheet so the two
 read as one product. If you change a colour there, change it here too. Icons
 and `logo.svg` are copies of the app's, kept local so this page loads nothing
 from another origin.
+
+`og-home.png` is the social preview card, the 1200x630 picture Discord, Slack
+and X show when this link is pasted. It is drawn by `tools/og-card.html` in
+the app repo and copied here, same as the icons: see `tools/README.md` there
+to re-render it. Its footer reads `pyweblib.org`, which is what makes it a
+different file from the app's `og-default.png`.
