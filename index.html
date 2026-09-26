@@ -536,5 +536,15 @@ speed = [random.choice([<span class="n">0.3</span>, <span class="n">0.5</span>, 
       });
     })();
   </script>
+
+  <!-- Cloudflare Web Analytics. Cookieless and with no fingerprinting, so it
+       needs no consent banner and the privacy policy's "no tracking cookies"
+       stays true; it counts page views, referrers and countries, never people.
+       Loaded last and as a module, so it defers and cannot delay the hero.
+       The token is public by design: it identifies the site being counted, not
+       the account, which is why it belongs in the HTML. Declared at
+       https://play.pyweblib.org/privacy/ , which covers this page too. -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "df284b0e1a81489eb9474fb01cad7f34"}'></script>
 </body>
 </html>
