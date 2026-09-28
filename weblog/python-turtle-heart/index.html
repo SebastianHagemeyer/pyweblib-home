@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to draw a heart in Python with turtle (and why the math works) | WeBlog</title>
+  <meta name="description" content="Draw a heart in Python with turtle using one formula and a loop. The full code, a step-by-step build from oval to heart, a rainbow version, and how to run it in your browser or on your own computer." />
+  <link rel="canonical" href="https://pyweblib.org/weblog/python-turtle-heart/" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#080b18" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PyWebLib" />
+  <meta property="og:title" content="How to draw a heart in Python with turtle" />
+  <meta property="og:description" content="One formula, one loop, and the math behind it. Copy the code or open it in the browser, nothing to install." />
+  <meta property="og:url" content="https://pyweblib.org/weblog/python-turtle-heart/" />
+  <meta property="og:image" content="https://pyweblib.org/weblog/python-turtle-heart/card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Six rainbow-coloured hearts nested inside each other, drawn by Python turtle." />
+  <meta property="article:published_time" content="2026-09-27" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to draw a heart in Python with turtle" />
+  <meta name="twitter:description" content="One formula, one loop, and the math behind it. Copy the code or open it in the browser, nothing to install." />
+  <meta name="twitter:image" content="https://pyweblib.org/weblog/python-turtle-heart/card.png" />
+  <meta name="twitter:image:alt" content="Six rainbow-coloured hearts nested inside each other, drawn by Python turtle." />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/weblog/weblog.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to draw a heart in Python with turtle (and why the math works)",
+    "description": "Draw a heart in Python with turtle using one formula and a loop, with a step-by-step build from oval to heart.",
+    "image": "https://pyweblib.org/weblog/python-turtle-heart/card.png",
+    "datePublished": "2026-09-27",
+    "dateModified": "2026-09-27",
+    "mainEntityOfPage": "https://pyweblib.org/weblog/python-turtle-heart/",
+    "author": { "@type": "Organization", "name": "PyWebLib", "url": "https://pyweblib.org/" },
+    "publisher": { "@id": "https://pyweblib.org/#org" },
+    "isPartOf": { "@type": "Blog", "name": "WeBlog", "url": "https://pyweblib.org/weblog/" },
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img class="logo-mark" src="/favicon.svg" alt="" width="32" height="32" />
+        <span>PyWebLib</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="header-link" href="https://play.pyweblib.org/docs/">Docs</a>
+        <a class="header-link" href="https://play.pyweblib.org/community/">Community</a>
+        <a class="header-link" href="/weblog/">WeBlog</a>
+        <a class="btn btn-primary btn-nav" href="https://play.pyweblib.org/">Open the Playground</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="post">
+      <header class="post-head">
+        <p class="eyebrow"><a href="/weblog/">WeBlog</a> &middot; Turtle</p>
+        <h1>How to draw a heart in Python with turtle</h1>
+        <p class="lede">A heart is one formula and one loop. Here is the whole program, then the math behind it, built up one piece at a time so you can see where the shape comes from.</p>
+        <p class="post-meta"><time datetime="2026-09-27">27 September 2026</time> &middot; 5 minute read</p>
+      </header>
+
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="heart.jpg" width="522" height="350"
+               aria-label="Python turtle tracing the outline of a heart, then filling it pink.">
+          <source src="heart.mp4" type="video/mp4" />
+        </video>
+        <figcaption>The program below, running in the PyWebLib Playground.</figcaption>
+      </figure>
+
+      <h2 id="code">The whole program</h2>
+      <p>Copy this into any Python that has turtle, or open it in the Playground and press <strong>Run</strong>. There is nothing to install for the Playground: it runs real Python in your browser tab.</p>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">heart.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> turtle
+<span class="k">import</span> math
+
+turtle.<span class="f">bgcolor</span>(<span class="s">"#1b1030"</span>)
+turtle.<span class="f">pensize</span>(<span class="n">3</span>)
+turtle.<span class="f">color</span>(<span class="s">"#ff4d6d"</span>, <span class="s">"#ff8fa3"</span>)   <span class="c"># outline, fill</span>
+turtle.<span class="f">speed</span>(<span class="n">8</span>)
+
+size = <span class="n">10</span>   <span class="c"># 1 unit of the formula = 10 steps on screen</span>
+
+turtle.<span class="f">penup</span>()
+turtle.<span class="f">goto</span>(<span class="n">0</span>, <span class="n">5</span> * size)   <span class="c"># where the curve starts, at t = 0</span>
+turtle.<span class="f">pendown</span>()
+turtle.<span class="f">begin_fill</span>()
+
+<span class="k">for</span> step <span class="k">in</span> <span class="f">range</span>(<span class="n">101</span>):
+    t = step / <span class="n">100</span> * <span class="n">2</span> * math.pi   <span class="c"># from 0 all the way round to 2 pi</span>
+    x = <span class="n">16</span> * math.<span class="f">sin</span>(t) ** <span class="n">3</span>
+    y = <span class="n">13</span> * math.<span class="f">cos</span>(t) - <span class="n">5</span> * math.<span class="f">cos</span>(<span class="n">2</span> * t) - <span class="n">2</span> * math.<span class="f">cos</span>(<span class="n">3</span> * t) - math.<span class="f">cos</span>(<span class="n">4</span> * t)
+    turtle.<span class="f">goto</span>(x * size, y * size)
+
+turtle.<span class="f">end_fill</span>()
+turtle.<span class="f">hideturtle</span>()
+</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQppbXBvcnQgbWF0aAoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUucGVuc2l6ZSgzKQp0dXJ0bGUuY29sb3IoIiNmZjRkNmQiLCAiI2ZmOGZhMyIpICAgIyBvdXRsaW5lLCBmaWxsCnR1cnRsZS5zcGVlZCg4KQoKc2l6ZSA9IDEwICAgIyAxIHVuaXQgb2YgdGhlIGZvcm11bGEgPSAxMCBzdGVwcyBvbiBzY3JlZW4KCnR1cnRsZS5wZW51cCgpCnR1cnRsZS5nb3RvKDAsIDUgKiBzaXplKSAgICMgd2hlcmUgdGhlIGN1cnZlIHN0YXJ0cywgYXQgdCA9IDAKdHVydGxlLnBlbmRvd24oKQp0dXJ0bGUuYmVnaW5fZmlsbCgpCgpmb3Igc3RlcCBpbiByYW5nZSgxMDEpOgogICAgdCA9IHN0ZXAgLyAxMDAgKiAyICogbWF0aC5waSAgICMgZnJvbSAwIGFsbCB0aGUgd2F5IHJvdW5kIHRvIDIgcGkKICAgIHggPSAxNiAqIG1hdGguc2luKHQpICoqIDMKICAgIHkgPSAxMyAqIG1hdGguY29zKHQpIC0gNSAqIG1hdGguY29zKDIgKiB0KSAtIDIgKiBtYXRoLmNvcygzICogdCkgLSBtYXRoLmNvcyg0ICogdCkKICAgIHR1cnRsZS5nb3RvKHggKiBzaXplLCB5ICogc2l6ZSkKCnR1cnRsZS5lbmRfZmlsbCgpCnR1cnRsZS5oaWRldHVydGxlKCk">Open in the Playground</a>
+        <span class="note">Opens with this code already in the editor.</span>
+      </p>
+
+      <div class="callout">
+        <p><strong>On your own computer?</strong> The same code works in IDLE, Thonny or VS Code, because <code>turtle</code> and <code>math</code> come with Python. Add <code>turtle.done()</code> as the last line so the window stays open when the drawing finishes.</p>
+      </div>
+
+      <h2 id="formula">The heart formula</h2>
+      <p>The shape comes from a pair of equations. You feed in a number <code>t</code>, and they give back one point <code>(x, y)</code> on the heart:</p>
+      <div class="formula">
+        x = 16 &middot; sin(t)&sup3;<br />
+        y = 13 &middot; cos(t) &minus; 5 &middot; cos(2t) &minus; 2 &middot; cos(3t) &minus; cos(4t)
+      </div>
+      <p>As <code>t</code> runs from 0 up to 2&pi; (a full turn, about 6.28), the point travels once around the heart and ends up back where it started. The loop does exactly that: it splits the trip into 100 small steps, works out the point for each one, and sends the turtle there with <code>goto</code>. Joined up, 100 short straight lines look like one smooth curve.</p>
+      <p>Why <code>range(101)</code> and not <code>range(100)</code>? Step 100 lands on <code>t = 2&pi;</code>, which is the starting point again, so the outline closes up neatly.</p>
+
+      <h2 id="build">Building it up, one piece at a time</h2>
+      <p>The formula looks like magic until you take it apart. Start with the simplest version and add one piece at a time.</p>
+
+      <h3>1. Sine and cosine make an oval</h3>
+      <p>With just <code>x = 16 * sin(t)</code> and <code>y = 13 * cos(t)</code>, the point goes round a plain oval: 32 wide and 26 tall. This is the same trick that draws a circle, stretched a little sideways.</p>
+
+      <h3>2. Cubing the sine pinches the top and bottom</h3>
+      <p>Now change the x line to <code>16 * sin(t) ** 3</code>. Near the top and bottom of the oval, <code>sin(t)</code> is a small number, and cubing a small number makes it much smaller (0.2 cubed is 0.008). So the point stays close to the middle for longer and gets squeezed into a sharp tip. At the sides, <code>sin(t)</code> is close to 1, and 1 cubed is still 1, so the width doesn't change.</p>
+
+      <div class="fig-pair">
+        <figure class="fig">
+          <img src="oval.jpg" alt="A red oval drawn by Python turtle." width="1044" height="706" loading="lazy" />
+          <figcaption>Step 1: <code>sin(t)</code>, an oval. <a href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQppbXBvcnQgbWF0aAoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUucGVuc2l6ZSgzKQp0dXJ0bGUucGVuY29sb3IoIiNmZjRkNmQiKQpzaXplID0gMTAKCnR1cnRsZS5wZW51cCgpCmZvciBzdGVwIGluIHJhbmdlKDEwMSk6CiAgICB0ID0gc3RlcCAvIDEwMCAqIDIgKiBtYXRoLnBpCiAgICB4ID0gMTYgKiBtYXRoLnNpbih0KQogICAgeSA9IDEzICogbWF0aC5jb3ModCkKICAgIHR1cnRsZS5nb3RvKHggKiBzaXplLCB5ICogc2l6ZSkKICAgIHR1cnRsZS5wZW5kb3duKCkKdHVydGxlLmhpZGV0dXJ0bGUoKQ">Open</a></figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="cubed.jpg" alt="A lemon shape, pointed at the top and bottom, drawn by Python turtle." width="1044" height="706" loading="lazy" />
+          <figcaption>Step 2: <code>sin(t) ** 3</code>, pinched. <a href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQppbXBvcnQgbWF0aAoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUucGVuc2l6ZSgzKQp0dXJ0bGUucGVuY29sb3IoIiNmZjRkNmQiKQpzaXplID0gMTAKCnR1cnRsZS5wZW51cCgpCmZvciBzdGVwIGluIHJhbmdlKDEwMSk6CiAgICB0ID0gc3RlcCAvIDEwMCAqIDIgKiBtYXRoLnBpCiAgICB4ID0gMTYgKiBtYXRoLnNpbih0KSAqKiAzCiAgICB5ID0gMTMgKiBtYXRoLmNvcyh0KQogICAgdHVydGxlLmdvdG8oeCAqIHNpemUsIHkgKiBzaXplKQogICAgdHVydGxlLnBlbmRvd24oKQp0dXJ0bGUuaGlkZXR1cnRsZSgp">Open</a></figcaption>
+        </figure>
+      </div>
+
+      <h3>3. Three more cosines bend it into a heart</h3>
+      <p>The lemon shape is pointed at both ends. The last three terms of the y line, <code>- 5*cos(2t) - 2*cos(3t) - cos(4t)</code>, fix that. Look at what they do at the two tips:</p>
+      <ul>
+        <li><strong>The top (t = 0):</strong> y = 13 &minus; 5 &minus; 2 &minus; 1 = <strong>5</strong>. The tip is pulled down below the two rounded shoulders on either side (which reach about 12), and that makes the dip in the middle of the heart.</li>
+        <li><strong>The bottom (t = &pi;):</strong> y = &minus;13 &minus; 5 + 2 &minus; 1 = <strong>&minus;17</strong>. The bottom tip is pushed further down, into the long point of the heart.</li>
+      </ul>
+      <p>That is the whole secret: an oval, pinched with a cube, then bent down at the top and stretched at the bottom.</p>
+
+      <h2 id="size">Making it bigger, smaller, or somewhere else</h2>
+      <p>The formula's heart is small: 32 units wide and about 29 tall. The <code>size</code> variable scales it up, so <code>size = 10</code> gives a heart 320 steps wide. To move it, add to the coordinates: <code>turtle.goto(x * size + 100, y * size)</code> draws it 100 steps to the right.</p>
+      <p>Two other numbers are worth changing:</p>
+      <ul>
+        <li><code>range(101)</code> and the <code>100</code> inside the loop set how many straight lines make up the curve. Try 10 steps (<code>range(11)</code> and <code>/ 10</code>) and you get a chunky, low-poly heart.</li>
+        <li><code>turtle.speed(8)</code> sets how fast the turtle walks. Use <code>0</code> to draw instantly, or <code>1</code> to watch it crawl.</li>
+      </ul>
+
+      <h2 id="rainbow">Going further: rainbow hearts</h2>
+      <p>Wrap the loop in a function that takes a size and a colour, and you can draw as many hearts as you like. This draws six, each one 1.5 smaller than the last.</p>
+
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="rainbow.jpg" width="522" height="350"
+               aria-label="Python turtle drawing six nested hearts in rainbow colours, from the outside in.">
+          <source src="rainbow.mp4" type="video/mp4" />
+        </video>
+      </figure>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">rainbow_hearts.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> turtle
+<span class="k">import</span> math
+
+turtle.<span class="f">bgcolor</span>(<span class="s">"#1b1030"</span>)
+turtle.<span class="f">pensize</span>(<span class="n">3</span>)
+turtle.<span class="f">speed</span>(<span class="n">9</span>)
+colours = [<span class="s">"#ff4d6d"</span>, <span class="s">"#ff922b"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#69db7c"</span>, <span class="s">"#4dabf7"</span>, <span class="s">"#b197fc"</span>]
+
+<span class="k">def</span> <span class="f">heart</span>(size, colour):
+    turtle.<span class="f">pencolor</span>(colour)
+    turtle.<span class="f">penup</span>()
+    <span class="k">for</span> step <span class="k">in</span> <span class="f">range</span>(<span class="n">101</span>):
+        t = step / <span class="n">100</span> * <span class="n">2</span> * math.pi
+        x = <span class="n">16</span> * math.<span class="f">sin</span>(t) ** <span class="n">3</span>
+        y = <span class="n">13</span> * math.<span class="f">cos</span>(t) - <span class="n">5</span> * math.<span class="f">cos</span>(<span class="n">2</span> * t) - <span class="n">2</span> * math.<span class="f">cos</span>(<span class="n">3</span> * t) - math.<span class="f">cos</span>(<span class="n">4</span> * t)
+        turtle.<span class="f">goto</span>(x * size, y * size)
+        turtle.<span class="f">pendown</span>()
+
+<span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">6</span>):
+    <span class="f">heart</span>(<span class="n">10</span> - i * <span class="n">1.5</span>, colours[i])
+
+turtle.<span class="f">hideturtle</span>()
+</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQppbXBvcnQgbWF0aAoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUucGVuc2l6ZSgzKQp0dXJ0bGUuc3BlZWQoOSkKY29sb3VycyA9IFsiI2ZmNGQ2ZCIsICIjZmY5MjJiIiwgIiNmZmQ0M2IiLCAiIzY5ZGI3YyIsICIjNGRhYmY3IiwgIiNiMTk3ZmMiXQoKZGVmIGhlYXJ0KHNpemUsIGNvbG91cik6CiAgICB0dXJ0bGUucGVuY29sb3IoY29sb3VyKQogICAgdHVydGxlLnBlbnVwKCkKICAgIGZvciBzdGVwIGluIHJhbmdlKDEwMSk6CiAgICAgICAgdCA9IHN0ZXAgLyAxMDAgKiAyICogbWF0aC5waQogICAgICAgIHggPSAxNiAqIG1hdGguc2luKHQpICoqIDMKICAgICAgICB5ID0gMTMgKiBtYXRoLmNvcyh0KSAtIDUgKiBtYXRoLmNvcygyICogdCkgLSAyICogbWF0aC5jb3MoMyAqIHQpIC0gbWF0aC5jb3MoNCAqIHQpCiAgICAgICAgdHVydGxlLmdvdG8oeCAqIHNpemUsIHkgKiBzaXplKQogICAgICAgIHR1cnRsZS5wZW5kb3duKCkKCmZvciBpIGluIHJhbmdlKDYpOgogICAgaGVhcnQoMTAgLSBpICogMS41LCBjb2xvdXJzW2ldKQoKdHVydGxlLmhpZGV0dXJ0bGUoKQ">Open in the Playground</a>
+      </p>
+      <p>This version lifts the pen before each heart and puts it down after the first point, so the turtle doesn't draw a line from one heart to the next.</p>
+
+      <h2 id="game">Using the game library instead</h2>
+      <p>The same formula works outside turtle, but watch the direction of y. In turtle, y goes <em>up</em> the screen. In PyWebLib's <a href="https://play.pyweblib.org/docs/game/">game library</a>, like most game screens, y goes <em>down</em>, and (0, 0) is the top-left corner. So flip y and move the heart to the middle of the window:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">snippet.py</span></div>
+        <pre class="demo-code"><code>screen_x = WIDTH / <span class="n">2</span> + x * size
+screen_y = HEIGHT / <span class="n">2</span> - y * size   <span class="c"># minus: game y points down</span></code></pre>
+      </div>
+
+      <h2 id="gallery">Hearts from the community gallery</h2>
+      <p>This formula keeps turning up in the <a href="https://play.pyweblib.org/community/">PyWebLib gallery</a>, sometimes with its comments in another language. Open any of these and look at the code: you'll recognise the two lines.</p>
+      <ul>
+        <li><a href="https://play.pyweblib.org/game/?id=0b9e2fff-8f3f-447c-857c-ad0c08720ff9"><strong>A one sided love</strong></a>: instead of drawing a line, it writes a small moon at every point, then does it again at six sizes.</li>
+        <li><a href="https://play.pyweblib.org/game/?id=fa9bc2c3-12ac-4ac3-bd8e-b3bd541d4b85"><strong>I love you</strong></a>: writes the words around the curve. Its comments are in Portuguese: <em>Equa&ccedil;&atilde;o do cora&ccedil;&atilde;o</em>, the heart equation.</li>
+        <li><a href="https://play.pyweblib.org/game/?id=14be1187-ca63-40dd-8496-eb24d05f88d7"><strong>heartblue</strong></a>: builds the heart from particles with the game library, flipping y just like above. Its comments are in Indonesian: <em>RUMUS HATI</em>, the heart formula.</li>
+      </ul>
+
+      <section class="post-end">
+        <h2>Make your own</h2>
+        <p>Change the colours, the size, or the formula itself, then share it to the gallery for others to find.</p>
+        <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQppbXBvcnQgbWF0aAoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUucGVuc2l6ZSgzKQp0dXJ0bGUuY29sb3IoIiNmZjRkNmQiLCAiI2ZmOGZhMyIpICAgIyBvdXRsaW5lLCBmaWxsCnR1cnRsZS5zcGVlZCg4KQoKc2l6ZSA9IDEwICAgIyAxIHVuaXQgb2YgdGhlIGZvcm11bGEgPSAxMCBzdGVwcyBvbiBzY3JlZW4KCnR1cnRsZS5wZW51cCgpCnR1cnRsZS5nb3RvKDAsIDUgKiBzaXplKSAgICMgd2hlcmUgdGhlIGN1cnZlIHN0YXJ0cywgYXQgdCA9IDAKdHVydGxlLnBlbmRvd24oKQp0dXJ0bGUuYmVnaW5fZmlsbCgpCgpmb3Igc3RlcCBpbiByYW5nZSgxMDEpOgogICAgdCA9IHN0ZXAgLyAxMDAgKiAyICogbWF0aC5waSAgICMgZnJvbSAwIGFsbCB0aGUgd2F5IHJvdW5kIHRvIDIgcGkKICAgIHggPSAxNiAqIG1hdGguc2luKHQpICoqIDMKICAgIHkgPSAxMyAqIG1hdGguY29zKHQpIC0gNSAqIG1hdGguY29zKDIgKiB0KSAtIDIgKiBtYXRoLmNvcygzICogdCkgLSBtYXRoLmNvcyg0ICogdCkKICAgIHR1cnRsZS5nb3RvKHggKiBzaXplLCB5ICogc2l6ZSkKCnR1cnRsZS5lbmRfZmlsbCgpCnR1cnRsZS5oaWRldHVydGxlKCk">Open the heart in the Playground</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>
+        <strong>PyWebLib</strong> is free and open source, built on
+        <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>. MIT licensed.
+      </p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://play.pyweblib.org/">Playground</a>
+        <a href="/weblog/">WeBlog</a>
+        <a href="https://play.pyweblib.org/about/">About</a>
+        <a href="https://play.pyweblib.org/privacy/">Privacy</a>
+        <a href="https://play.pyweblib.org/terms/">Terms</a>
+        <a href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics, same beacon and token as the front page. -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "df284b0e1a81489eb9474fb01cad7f34"}'></script>
+</body>
+</html>

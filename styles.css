@@ -42,8 +42,10 @@
   /* The filled button reads --primary for its fill and pairs it with white
      text. On a dark page --primary is lightened for legible links, which is
      too pale behind white, so the button keeps its own saturated indigo. */
-  .btn-primary { background: #4f46e5; }
-  .btn-primary:hover { background: #4338ca; }
+  /* .btn doubled up so this outranks the base .btn-primary rule further down,
+     which would otherwise win on source order and undo it. */
+  .btn.btn-primary { background: #4f46e5; }
+  .btn.btn-primary:hover { background: #4338ca; }
   /* The ink-tinted hairline vanishes on a dark page; lift it to a light one. */
   .what-else { border-color: rgba(255, 255, 255, 0.16); }
 }

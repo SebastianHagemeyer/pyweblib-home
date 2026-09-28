@@ -1,0 +1,101 @@
+/* The WeBlog (pyweblib.org/weblog/). Loaded after /styles.css, so it
+   inherits the tokens, header, footer, buttons and the .hero-demo code card,
+   and only adds what an article needs: a readable column, figures, and the
+   post list. No JavaScript: the code on a post is there to read, and each
+   program opens in the Playground through its "Open in the Playground" link. */
+
+/* Keep the footer at the bottom of the window on a short page (the index
+   with only a post or two). */
+body { min-height: 100vh; display: flex; flex-direction: column; }
+body > main { flex: 1 0 auto; }
+
+/* ---------------------------------------------------------------- column */
+.post, .blog-head, .post-list { max-width: 740px; margin: 0 auto; }
+
+.blog-head { padding: 56px 0 8px; }
+.blog-head h1, .post-head h1 {
+  margin: 0 0 12px; font-size: clamp(1.9rem, 4.4vw, 2.6rem);
+  line-height: 1.15; letter-spacing: -0.025em; font-weight: 800;
+}
+.blog-head .lede, .post-head .lede { margin: 0; font-size: 1.1rem; color: var(--muted); }
+
+/* ---------------------------------------------------------------- post list */
+.post-list { list-style: none; padding: 32px 0 80px; margin: 0 auto; display: grid; gap: 18px; }
+.post-card {
+  display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 20px; align-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 14px; box-shadow: var(--shadow-sm); text-decoration: none; color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.post-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+.post-card img { width: 100%; height: auto; display: block; border-radius: var(--radius-sm); }
+.post-card h2 { margin: 0 0 6px; font-size: 1.2rem; letter-spacing: -0.01em; line-height: 1.3; }
+.post-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.post-card .post-meta { margin-top: 8px; }
+
+/* ---------------------------------------------------------------- article */
+.post { padding: 48px 0 80px; }
+.post-head { margin-bottom: 28px; }
+.post-meta { color: var(--muted); font-size: 0.88rem; }
+.post-meta a { color: inherit; }
+
+.post h2 {
+  margin: 48px 0 12px; font-size: 1.5rem; letter-spacing: -0.015em; font-weight: 800;
+  scroll-margin-top: 80px;
+}
+.post h3 { margin: 28px 0 8px; font-size: 1.12rem; letter-spacing: -0.01em; }
+.post p, .post li { font-size: 1.04rem; }
+.post p { margin: 0 0 16px; }
+.post ul, .post ol { padding-left: 1.3em; margin: 0 0 16px; }
+.post li { margin-bottom: 6px; }
+
+/* The formula, set on its own line so it reads as maths, not as code. */
+.formula {
+  margin: 20px 0 24px; padding: 18px 22px;
+  background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1rem; line-height: 1.9;
+  overflow-x: auto; white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- figures */
+/* Every picture is the real Playground's turtle window, so it wears the same
+   dark stage colour the programs set with turtle.bgcolor(). */
+.fig { margin: 24px 0 28px; }
+.fig video, .fig img {
+  display: block; width: 100%; height: auto;
+  background: #1b1030; border-radius: var(--radius); box-shadow: var(--shadow-md);
+}
+.fig video { aspect-ratio: 522 / 350; }
+.fig figcaption { margin-top: 10px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+/* Two small figures side by side, one above the other on a phone. */
+.fig-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0 28px; }
+.fig-pair .fig { margin: 0; }
+
+/* ---------------------------------------------------------------- code */
+.post .hero-demo { margin: 20px 0 14px; }
+.demo-code .c { color: #7f89ad; font-style: italic; }
+.open-row { margin: 0 0 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.open-row .note { color: var(--muted); font-size: 0.88rem; }
+
+.callout {
+  margin: 24px 0; padding: 16px 20px;
+  background: rgba(79, 70, 229, 0.07); border: 1px solid rgba(79, 70, 229, 0.22);
+  border-radius: var(--radius-sm);
+}
+.callout p:last-child { margin-bottom: 0; }
+
+.post-end {
+  margin-top: 56px; padding: 28px; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.post-end h2 { margin: 0 0 8px; }
+.post-end p { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .blog-head { padding-top: 36px; }
+  .post { padding-top: 32px; }
+  .post-card { grid-template-columns: 1fr; }
+  .fig-pair { grid-template-columns: 1fr; }
+}

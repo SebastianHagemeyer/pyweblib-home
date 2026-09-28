@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel art in Python: draw a picture by typing it | WeBlog</title>
+  <meta name="description" content="Make pixel art in Python by typing the picture as text: one letter per coloured square. Starts with a black cat from the PyWebLib gallery, then a space invader, a strawberry, a mirror trick, and the 1989 image format that works the same way." />
+  <link rel="canonical" href="https://pyweblib.org/weblog/python-pixel-art-from-text/" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#080b18" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PyWebLib" />
+  <meta property="og:title" content="Pixel art in Python: draw a picture by typing it" />
+  <meta property="og:description" content="One letter, one coloured square. A picture made of text, drawn with Python turtle." />
+  <meta property="og:url" content="https://pyweblib.org/weblog/python-pixel-art-from-text/" />
+  <meta property="og:image" content="https://pyweblib.org/weblog/python-pixel-art-from-text/card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A green pixel-art space invader drawn by Python turtle." />
+  <meta property="article:published_time" content="2026-09-28" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pixel art in Python: draw a picture by typing it" />
+  <meta name="twitter:description" content="One letter, one coloured square. A picture made of text, drawn with Python turtle." />
+  <meta name="twitter:image" content="https://pyweblib.org/weblog/python-pixel-art-from-text/card.png" />
+  <meta name="twitter:image:alt" content="A green pixel-art space invader drawn by Python turtle." />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/weblog/weblog.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Pixel art in Python: draw a picture by typing it",
+    "description": "Make pixel art in Python by typing the picture as text, one letter per coloured square.",
+    "image": "https://pyweblib.org/weblog/python-pixel-art-from-text/card.png",
+    "datePublished": "2026-09-28",
+    "dateModified": "2026-09-28",
+    "mainEntityOfPage": "https://pyweblib.org/weblog/python-pixel-art-from-text/",
+    "author": { "@type": "Organization", "name": "PyWebLib", "url": "https://pyweblib.org/" },
+    "publisher": { "@id": "https://pyweblib.org/#org" },
+    "isPartOf": { "@type": "Blog", "name": "WeBlog", "url": "https://pyweblib.org/weblog/" },
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img class="logo-mark" src="/favicon.svg" alt="" width="32" height="32" />
+        <span>PyWebLib</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="header-link" href="https://play.pyweblib.org/docs/">Docs</a>
+        <a class="header-link" href="https://play.pyweblib.org/community/">Community</a>
+        <a class="header-link" href="/weblog/">WeBlog</a>
+        <a class="btn btn-primary btn-nav" href="https://play.pyweblib.org/">Open the Playground</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="post">
+      <header class="post-head">
+        <p class="eyebrow"><a href="/weblog/">WeBlog</a> &middot; Turtle</p>
+        <h1>Pixel art in Python: draw a picture by typing it</h1>
+        <p class="lede">You can draw a picture by typing it out as text, one letter for each coloured square. It started with a black cat in the gallery. This post shows how the trick works, how to make your own, and the 1989 image format that works exactly the same way.</p>
+        <p class="post-meta"><time datetime="2026-09-28">28 September 2026</time> &middot; 5 minute read</p>
+      </header>
+
+      <h2 id="cat">A cat made of letters</h2>
+      <p>This black cat, whiskers, collar and all, is from the <a href="https://play.pyweblib.org/community/">PyWebLib gallery</a>, made by Gleb K. There is no image file anywhere in the program. The whole picture is typed out as rows of letters.</p>
+
+      <figure class="fig">
+        <img src="cat.jpg" alt="A pixel-art black cat with yellow eyes, whiskers, a pink collar and a curled tail, drawn by Python turtle." width="1044" height="706" />
+        <figcaption>Gleb K.'s cat. It was made for a bigger window, so here the squares are shrunk to fit. <a href="https://play.pyweblib.org/game/?id=8d8531e8-402d-4c32-8c93-3845cdbda15a">See it in the gallery</a></figcaption>
+      </figure>
+
+      <p>Here is the part of Gleb's code that holds the picture. The comments are in Ukrainian: <em>1 символ = 1 квадратик</em> means "1 character = 1 little square", and the second line says B is black, Y yellow, R red and P pink.</p>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Gleb's program</span></div>
+        <pre class="demo-code"><code><span class="c"># 1 символ = 1 квадратик</span>
+<span class="c"># B - чорний, Y - жовтий, R - червоний, P - рожевий</span>
+picture = [
+<span class="s">"      BBB          BBB"</span>,
+<span class="s">"     BBBBB        BBBBB"</span>,
+<span class="s">"     BBBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"    BBBBBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"    BBBBBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"    BBBYYYYBBBBBBYYYYBBB"</span>,
+<span class="s">"    BBBYBYYBBBBBBYYBYBBB"</span>,
+<span class="s">"    BBBYYYYBBBBBBYYYYBBB"</span>,
+<span class="s">"    BBBBBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"BBB BBBBBBBBBBBRRBBBBBBBBBBBB"</span>,
+<span class="s">"    BBBBBBBBBRRBBBBBBBBB"</span>,
+<span class="s">"  BBBBBBBBBRRRRRRRRBBBBBBBBB"</span>,
+<span class="s">"      BBBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"       BBBBBBBBBBBBBBBB"</span>,
+<span class="s">"         BPPPPBBPPPPB"</span>,
+<span class="s">"         BBBBRRRRBBBB"</span>,
+<span class="s">"     BBBBBBBBBBBBBBB"</span>,
+<span class="s">"   BBBBBBBBBBBBBBBBB"</span>,
+<span class="s">"  BBBBB BBBBBBBBBBBB"</span>,
+<span class="s">"  BBB   BBBBBBBBBBBB"</span>,
+<span class="s">"   BBB  BBBBBBBBBBBB"</span>,
+<span class="s">"    BBB BBBBBBBBBBBB"</span>,
+<span class="s">"     BBBBBBBBBBBBBBB"</span>,
+<span class="s">"         BBBBB  BBBBB"</span>,
+<span class="s">"         BBBBB  BBBBB"</span>
+]
+
+colors = {
+    <span class="s">"B"</span>: <span class="s">"black"</span>,
+    <span class="s">"Y"</span>: <span class="s">"yellow"</span>,
+    <span class="s">"R"</span>: <span class="s">"red"</span>,
+    <span class="s">"P"</span>: <span class="s">"violet"</span>
+}
+</code></pre>
+      </div>
+      <p>Squint at the list and you can already see the cat: the ears on the first two rows, the <code>Y</code> eyes with a <code>B</code> pupil in each, and the <code>RR</code> nose.</p>
+
+      <h2 id="how">How it works</h2>
+      <p>The program has two parts, and they work together:</p>
+      <ol>
+        <li><strong>The picture</strong> is a list of strings, one string per row. Each character is one square.</li>
+        <li><strong>The key</strong> is a dictionary that says which colour each letter means. Any character that isn't in the key, like a space, is simply skipped, so it shows the background.</li>
+      </ol>
+      <p>Two loops then walk the picture. The outer loop goes down the rows, the inner loop goes along each row, and <code>enumerate</code> gives the position of each character as well as the character itself. The row and column numbers turn into a spot on the screen:</p>
+      <div class="formula">
+        x = start_x + col &times; (size + gap)<br />
+        y = start_y &minus; row &times; (size + gap)
+      </div>
+      <p>The minus is there because rows count <em>down</em> the page, but in turtle, y goes <em>up</em> the screen. Each step to the next row moves the turtle lower. The <code>gap</code> leaves a thin line between squares, which is what makes it look like pixels.</p>
+
+      <h2 id="invader">Make your own: a space invader</h2>
+      <p>Here is the same idea from scratch, with a classic arcade alien. Draw your picture with <code>X</code> for filled and a space for empty, and the loops do the rest.</p>
+
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="invader.jpg" width="522" height="350"
+               aria-label="Python turtle drawing a green space invader one square at a time, row by row.">
+          <source src="invader.mp4" type="video/mp4" />
+        </video>
+        <figcaption>The turtle fills in the picture one row at a time, just like reading it.</figcaption>
+      </figure>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">invader.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> turtle
+
+turtle.<span class="f">bgcolor</span>(<span class="s">"#1b1030"</span>)
+turtle.<span class="f">speed</span>(<span class="n">10</span>)
+turtle.<span class="f">hideturtle</span>()
+
+<span class="c"># One character = one square. A space is left empty.</span>
+picture = [
+    <span class="s">"  X     X  "</span>,
+    <span class="s">"   X   X   "</span>,
+    <span class="s">"  XXXXXXX  "</span>,
+    <span class="s">" XX XXX XX "</span>,
+    <span class="s">"XXXXXXXXXXX"</span>,
+    <span class="s">"X XXXXXXX X"</span>,
+    <span class="s">"X X     X X"</span>,
+    <span class="s">"   XX XX   "</span>,
+]
+
+colours = {
+    <span class="s">"X"</span>: <span class="s">"#69db7c"</span>,
+}
+
+size = <span class="n">22</span>   <span class="c"># each square is 22 steps wide</span>
+gap = <span class="n">4</span>     <span class="c"># and 4 steps apart, so you can see the pixels</span>
+
+<span class="k">def</span> <span class="f">square</span>(x, y, colour):
+    turtle.<span class="f">penup</span>()
+    turtle.<span class="f">goto</span>(x, y)
+    turtle.<span class="f">pendown</span>()
+    turtle.<span class="f">color</span>(colour)
+    turtle.<span class="f">begin_fill</span>()
+    <span class="k">for</span> side <span class="k">in</span> <span class="f">range</span>(<span class="n">4</span>):
+        turtle.<span class="f">forward</span>(size)
+        turtle.<span class="f">right</span>(<span class="n">90</span>)
+    turtle.<span class="f">end_fill</span>()
+
+start_x = -<span class="n">143</span>   <span class="c"># top-left corner of the picture</span>
+start_y = <span class="n">104</span>
+
+<span class="k">for</span> row, line <span class="k">in</span> <span class="f">enumerate</span>(picture):
+    <span class="k">for</span> col, letter <span class="k">in</span> <span class="f">enumerate</span>(line):
+        <span class="k">if</span> letter <span class="k">in</span> colours:
+            x = start_x + col * (size + gap)
+            y = start_y - row * (size + gap)
+            <span class="f">square</span>(x, y, colours[letter])
+</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUuc3BlZWQoMTApCnR1cnRsZS5oaWRldHVydGxlKCkKCiMgT25lIGNoYXJhY3RlciA9IG9uZSBzcXVhcmUuIEEgc3BhY2UgaXMgbGVmdCBlbXB0eS4KcGljdHVyZSA9IFsKICAgICIgIFggICAgIFggICIsCiAgICAiICAgWCAgIFggICAiLAogICAgIiAgWFhYWFhYWCAgIiwKICAgICIgWFggWFhYIFhYICIsCiAgICAiWFhYWFhYWFhYWFgiLAogICAgIlggWFhYWFhYWCBYIiwKICAgICJYIFggICAgIFggWCIsCiAgICAiICAgWFggWFggICAiLApdCgpjb2xvdXJzID0gewogICAgIlgiOiAiIzY5ZGI3YyIsCn0KCnNpemUgPSAyMiAgICMgZWFjaCBzcXVhcmUgaXMgMjIgc3RlcHMgd2lkZQpnYXAgPSA0ICAgICAjIGFuZCA0IHN0ZXBzIGFwYXJ0LCBzbyB5b3UgY2FuIHNlZSB0aGUgcGl4ZWxzCgpkZWYgc3F1YXJlKHgsIHksIGNvbG91cik6CiAgICB0dXJ0bGUucGVudXAoKQogICAgdHVydGxlLmdvdG8oeCwgeSkKICAgIHR1cnRsZS5wZW5kb3duKCkKICAgIHR1cnRsZS5jb2xvcihjb2xvdXIpCiAgICB0dXJ0bGUuYmVnaW5fZmlsbCgpCiAgICBmb3Igc2lkZSBpbiByYW5nZSg0KToKICAgICAgICB0dXJ0bGUuZm9yd2FyZChzaXplKQogICAgICAgIHR1cnRsZS5yaWdodCg5MCkKICAgIHR1cnRsZS5lbmRfZmlsbCgpCgpzdGFydF94ID0gLTE0MyAgICMgdG9wLWxlZnQgY29ybmVyIG9mIHRoZSBwaWN0dXJlCnN0YXJ0X3kgPSAxMDQKCmZvciByb3csIGxpbmUgaW4gZW51bWVyYXRlKHBpY3R1cmUpOgogICAgZm9yIGNvbCwgbGV0dGVyIGluIGVudW1lcmF0ZShsaW5lKToKICAgICAgICBpZiBsZXR0ZXIgaW4gY29sb3VyczoKICAgICAgICAgICAgeCA9IHN0YXJ0X3ggKyBjb2wgKiAoc2l6ZSArIGdhcCkKICAgICAgICAgICAgeSA9IHN0YXJ0X3kgLSByb3cgKiAoc2l6ZSArIGdhcCkKICAgICAgICAgICAgc3F1YXJlKHgsIHksIGNvbG91cnNbbGV0dGVyXSk">Open in the Playground</a>
+        <span class="note">Opens with this code already in the editor.</span>
+      </p>
+
+      <div class="callout">
+        <p><strong>Tip:</strong> sketch your picture on squared paper first, then type it in one row at a time. Rows don't all need to be the same length, and spaces at the start of a row push it to the right.</p>
+      </div>
+
+      <h2 id="colours">More colours: a strawberry</h2>
+      <p>For more colours, add more letters to the key. This strawberry uses three: <code>R</code> for red, <code>G</code> for the green leaves and <code>Y</code> for the seeds. Below is just the picture and its key. The drawing code is the same as the invader's.</p>
+
+      <div class="fig-pair">
+        <figure class="fig">
+          <img src="strawberry.jpg" alt="A pixel-art strawberry with green leaves and yellow seeds, drawn by Python turtle." width="1044" height="706" loading="lazy" />
+        </figure>
+        <div class="hero-demo" style="margin:0">
+          <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">strawberry.py</span></div>
+          <pre class="demo-code"><code>picture = [
+    <span class="s">"     GG     "</span>,
+    <span class="s">"   GGGGGG   "</span>,
+    <span class="s">"  RRGGGGRR  "</span>,
+    <span class="s">" RRRRRRRRRR "</span>,
+    <span class="s">" RYRRRRRYRR "</span>,
+    <span class="s">" RRRRYRRRRR "</span>,
+    <span class="s">" RRYRRRRYRR "</span>,
+    <span class="s">"  RRRRYRRR  "</span>,
+    <span class="s">"  RYRRRRRR  "</span>,
+    <span class="s">"   RRRYRR   "</span>,
+    <span class="s">"    RRRR    "</span>,
+    <span class="s">"     RR     "</span>,
+]
+
+colours = {
+    <span class="s">"R"</span>: <span class="s">"#ff4d6d"</span>,   <span class="c"># red</span>
+    <span class="s">"G"</span>: <span class="s">"#69db7c"</span>,   <span class="c"># green</span>
+    <span class="s">"Y"</span>: <span class="s">"#ffd43b"</span>,   <span class="c"># yellow seeds</span>
+}
+</code></pre>
+        </div>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUuc3BlZWQoMCkKdHVydGxlLmhpZGV0dXJ0bGUoKQoKcGljdHVyZSA9IFsKICAgICIgICAgIEdHICAgICAiLAogICAgIiAgIEdHR0dHRyAgICIsCiAgICAiICBSUkdHR0dSUiAgIiwKICAgICIgUlJSUlJSUlJSUiAiLAogICAgIiBSWVJSUlJSWVJSICIsCiAgICAiIFJSUlJZUlJSUlIgIiwKICAgICIgUlJZUlJSUllSUiAiLAogICAgIiAgUlJSUllSUlIgICIsCiAgICAiICBSWVJSUlJSUiAgIiwKICAgICIgICBSUlJZUlIgICAiLAogICAgIiAgICBSUlJSICAgICIsCiAgICAiICAgICBSUiAgICAgIiwKXQoKY29sb3VycyA9IHsKICAgICJSIjogIiNmZjRkNmQiLCAgICMgcmVkCiAgICAiRyI6ICIjNjlkYjdjIiwgICAjIGdyZWVuCiAgICAiWSI6ICIjZmZkNDNiIiwgICAjIHllbGxvdyBzZWVkcwp9CgpzaXplID0gMjAKZ2FwID0gNAoKZGVmIHNxdWFyZSh4LCB5LCBjb2xvdXIpOgogICAgdHVydGxlLnBlbnVwKCkKICAgIHR1cnRsZS5nb3RvKHgsIHkpCiAgICB0dXJ0bGUucGVuZG93bigpCiAgICB0dXJ0bGUuY29sb3IoY29sb3VyKQogICAgdHVydGxlLmJlZ2luX2ZpbGwoKQogICAgZm9yIHNpZGUgaW4gcmFuZ2UoNCk6CiAgICAgICAgdHVydGxlLmZvcndhcmQoc2l6ZSkKICAgICAgICB0dXJ0bGUucmlnaHQoOTApCiAgICB0dXJ0bGUuZW5kX2ZpbGwoKQoKc3RhcnRfeCA9IC0xNDQKc3RhcnRfeSA9IDE0NAoKZm9yIHJvdywgbGluZSBpbiBlbnVtZXJhdGUocGljdHVyZSk6CiAgICBmb3IgY29sLCBsZXR0ZXIgaW4gZW51bWVyYXRlKGxpbmUpOgogICAgICAgIGlmIGxldHRlciBpbiBjb2xvdXJzOgogICAgICAgICAgICB4ID0gc3RhcnRfeCArIGNvbCAqIChzaXplICsgZ2FwKQogICAgICAgICAgICB5ID0gc3RhcnRfeSAtIHJvdyAqIChzaXplICsgZ2FwKQogICAgICAgICAgICBzcXVhcmUoeCwgeSwgY29sb3Vyc1tsZXR0ZXJdKQ">Open the strawberry in the Playground</a>
+      </p>
+
+      <h2 id="mirror">A trick: draw half, mirror the rest</h2>
+      <p>Lots of pixel art is symmetrical, like the invader. So you only need to type the left half, and Python can make the right half for you. <code>line[-2::-1]</code> reads a string backwards, starting one character in from the end, so the middle column isn't copied twice.</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">mirror.py</span></div>
+        <pre class="demo-code"><code><span class="c"># Only the left half, up to and including the middle column</span>
+half = [
+    <span class="s">"  X   "</span>,
+    <span class="s">"   X  "</span>,
+    <span class="s">"  XXXX"</span>,
+    <span class="s">" XX XX"</span>,
+    <span class="s">"XXXXXX"</span>,
+    <span class="s">"X XXXX"</span>,
+    <span class="s">"X X   "</span>,
+    <span class="s">"   XX "</span>,
+]
+
+<span class="c"># Add each row's mirror image, skipping the middle column so it isn't doubled</span>
+picture = [line + line[-<span class="n">2</span>::-<span class="n">1</span>] <span class="k">for</span> line <span class="k">in</span> half]
+</code></pre>
+      </div>
+      <p>Put this in place of the <code>picture</code> list in the invader program, and you get exactly the same alien from half the typing.</p>
+
+      <h2 id="xpm">The same idea, from 1989: XPM</h2>
+      <p>This idea is older than you might think. In 1989, an image format called <strong>XPM</strong> (X PixMap) was made for the X Window System on Unix computers, and it was used for icons on those desktops. An XPM image is a text file, and it looks like this:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">invader.xpm</span></div>
+        <pre class="demo-code"><code><span class="c">/* XPM */</span>
+<span class="k">static char</span> *invader[] = {
+<span class="c">/* width height colours characters-per-pixel */</span>
+<span class="s">"11 8 2 1"</span>,
+<span class="s">"  c None"</span>,
+<span class="s">"X c #69db7c"</span>,
+<span class="s">"  X     X  "</span>,
+<span class="s">"   X   X   "</span>,
+<span class="s">"  XXXXXXX  "</span>,
+<span class="s">" XX XXX XX "</span>,
+<span class="s">"XXXXXXXXXXX"</span>,
+<span class="s">"X XXXXXXX X"</span>,
+<span class="s">"X X     X X"</span>,
+<span class="s">"   XX XX   "</span>
+};</code></pre>
+      </div>
+      <p>It's the same two parts. The first string gives the size and how many colours there are. Next comes the key, with each character followed by <code>c</code> and its colour, where <code>None</code> means see-through. Then the picture follows, one string per row. Gleb's <code>colors</code> dictionary is the key and his <code>picture</code> list is the rows.</p>
+      <p>XPM files are written in the C programming language, so a program could include its icons straight in its source code. Save the text above as <code>invader.xpm</code> and many image editors, such as GIMP, will still open it as a picture.</p>
+
+      <section class="post-end">
+        <h2>Type your own picture</h2>
+        <p>A pet, a game character, your initials: sketch it, type it, run it. Then share it to the gallery, like Gleb did.</p>
+        <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/#code=aW1wb3J0IHR1cnRsZQoKdHVydGxlLmJnY29sb3IoIiMxYjEwMzAiKQp0dXJ0bGUuc3BlZWQoMTApCnR1cnRsZS5oaWRldHVydGxlKCkKCiMgT25lIGNoYXJhY3RlciA9IG9uZSBzcXVhcmUuIEEgc3BhY2UgaXMgbGVmdCBlbXB0eS4KcGljdHVyZSA9IFsKICAgICIgIFggICAgIFggICIsCiAgICAiICAgWCAgIFggICAiLAogICAgIiAgWFhYWFhYWCAgIiwKICAgICIgWFggWFhYIFhYICIsCiAgICAiWFhYWFhYWFhYWFgiLAogICAgIlggWFhYWFhYWCBYIiwKICAgICJYIFggICAgIFggWCIsCiAgICAiICAgWFggWFggICAiLApdCgpjb2xvdXJzID0gewogICAgIlgiOiAiIzY5ZGI3YyIsCn0KCnNpemUgPSAyMiAgICMgZWFjaCBzcXVhcmUgaXMgMjIgc3RlcHMgd2lkZQpnYXAgPSA0ICAgICAjIGFuZCA0IHN0ZXBzIGFwYXJ0LCBzbyB5b3UgY2FuIHNlZSB0aGUgcGl4ZWxzCgpkZWYgc3F1YXJlKHgsIHksIGNvbG91cik6CiAgICB0dXJ0bGUucGVudXAoKQogICAgdHVydGxlLmdvdG8oeCwgeSkKICAgIHR1cnRsZS5wZW5kb3duKCkKICAgIHR1cnRsZS5jb2xvcihjb2xvdXIpCiAgICB0dXJ0bGUuYmVnaW5fZmlsbCgpCiAgICBmb3Igc2lkZSBpbiByYW5nZSg0KToKICAgICAgICB0dXJ0bGUuZm9yd2FyZChzaXplKQogICAgICAgIHR1cnRsZS5yaWdodCg5MCkKICAgIHR1cnRsZS5lbmRfZmlsbCgpCgpzdGFydF94ID0gLTE0MyAgICMgdG9wLWxlZnQgY29ybmVyIG9mIHRoZSBwaWN0dXJlCnN0YXJ0X3kgPSAxMDQKCmZvciByb3csIGxpbmUgaW4gZW51bWVyYXRlKHBpY3R1cmUpOgogICAgZm9yIGNvbCwgbGV0dGVyIGluIGVudW1lcmF0ZShsaW5lKToKICAgICAgICBpZiBsZXR0ZXIgaW4gY29sb3VyczoKICAgICAgICAgICAgeCA9IHN0YXJ0X3ggKyBjb2wgKiAoc2l6ZSArIGdhcCkKICAgICAgICAgICAgeSA9IHN0YXJ0X3kgLSByb3cgKiAoc2l6ZSArIGdhcCkKICAgICAgICAgICAgc3F1YXJlKHgsIHksIGNvbG91cnNbbGV0dGVyXSk">Start from the invader</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>
+        <strong>PyWebLib</strong> is free and open source, built on
+        <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>. MIT licensed.
+      </p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://play.pyweblib.org/">Playground</a>
+        <a href="/weblog/">WeBlog</a>
+        <a href="https://play.pyweblib.org/about/">About</a>
+        <a href="https://play.pyweblib.org/privacy/">Privacy</a>
+        <a href="https://play.pyweblib.org/terms/">Terms</a>
+        <a href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics, same beacon and token as the front page. -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "df284b0e1a81489eb9474fb01cad7f34"}'></script>
+</body>
+</html>
