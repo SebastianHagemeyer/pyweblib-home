@@ -128,7 +128,7 @@ code {
   margin: 0 0 18px; font-size: clamp(2.1rem, 5vw, 3.3rem);
   line-height: 1.12; letter-spacing: -0.02em; font-weight: 800;
 }
-/* The highlighted last line gets extra space above it — but only there, not
+/* The highlighted last line gets extra space above it, but only there, not
    between the first two lines. box-decoration-break paints the highlight's
    yellow background up into the line above, and against the tight heading
    leading that box clipped the descender of "your". A one-time margin on this
@@ -287,12 +287,23 @@ code {
   box-shadow: var(--shadow-lg); overflow: hidden;
 }
 .demo-bar {
-  display: flex; align-items: center; gap: 7px;
-  padding: 11px 14px; background: rgba(255, 255, 255, 0.06);
+  display: flex; align-items: center; gap: 20px;
+  padding: 11px 16px; background: rgba(255, 255, 255, 0.06);
 }
-.demo-dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); }
+/* Windows-style title bar, like the Shorts: the file name on the left and
+   minimise / maximise / close drawn as thin lines on the right. The markup
+   is still three .demo-dot spans before the name; CSS reorders and draws them. */
+.demo-dot { order: 1; position: relative; width: 11px; height: 11px; flex: none; }
+.demo-dot::before, .demo-dot::after { content: ""; position: absolute; }
+.demo-dot:nth-child(1)::before { left: 0; right: 0; top: 5px; border-top: 1.5px solid rgba(230, 231, 239, 0.6); }
+.demo-dot:nth-child(2)::before { inset: 0; border: 1.5px solid rgba(230, 231, 239, 0.6); }
+.demo-dot:nth-child(3)::before, .demo-dot:nth-child(3)::after {
+  left: -2px; right: -2px; top: 5px; border-top: 1.5px solid rgba(230, 231, 239, 0.6);
+  transform: rotate(45deg);
+}
+.demo-dot:nth-child(3)::after { transform: rotate(-45deg); }
 .demo-name {
-  margin-left: 8px; color: rgba(230, 231, 239, 0.62);
+  order: 0; margin-right: auto; color: rgba(230, 231, 239, 0.62);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78rem;
 }
 .demo-code {
