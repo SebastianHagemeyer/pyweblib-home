@@ -67,6 +67,12 @@ body > main { flex: 1 0 auto; }
   background: #1b1030; border-radius: var(--radius); box-shadow: var(--shadow-md);
 }
 .fig video { aspect-ratio: 522 / 350; }
+/* A YouTube Short: tall and narrow, so cap the width or it fills the screen. */
+.fig-short iframe {
+  display: block; width: 100%; max-width: 320px; aspect-ratio: 9 / 16; height: auto;
+  margin: 0 auto; border: 0; background: #0b1020;
+  border-radius: var(--radius); box-shadow: var(--shadow-md);
+}
 .fig figcaption { margin-top: 10px; color: var(--muted); font-size: 0.9rem; text-align: center; }
 
 /* Two small figures side by side, one above the other on a phone. */
