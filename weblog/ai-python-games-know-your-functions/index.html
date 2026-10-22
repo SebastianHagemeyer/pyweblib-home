@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Using AI to write Python games is fine. Knowing the functions is what makes it work. | WeBlog</title>
+  <meta name="description" content="Is it OK to use ChatGPT or Claude to write Python code? Yes, if you know what the functions do. A Sierpinski triangle made of sprites drops to 2 fps; the same picture with game.plot() keeps going at 250,000 dots. Plus the one-line leaderboard and the docs worth reading." />
+  <link rel="canonical" href="https://pyweblib.org/weblog/ai-python-games-know-your-functions/" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#080b18" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PyWebLib" />
+  <meta property="og:title" content="Using AI to write Python games is fine. Knowing the functions is what makes it work." />
+  <meta property="og:description" content="Two programs draw the same Sierpinski triangle. One crawls at 2 fps, the other draws 250,000 dots without slowing down. The difference is one function." />
+  <meta property="og:url" content="https://pyweblib.org/weblog/ai-python-games-know-your-functions/" />
+  <meta property="og:image" content="https://pyweblib.org/weblog/ai-python-games-know-your-functions/card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A Sierpinski triangle in red, yellow and blue, drawn from thousands of dots by a Python program." />
+  <meta property="article:published_time" content="2026-10-22" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Using AI to write Python games is fine. Knowing the functions is what makes it work." />
+  <meta name="twitter:description" content="Two programs draw the same Sierpinski triangle. One crawls at 2 fps, the other draws 250,000 dots without slowing down. The difference is one function." />
+  <meta name="twitter:image" content="https://pyweblib.org/weblog/ai-python-games-know-your-functions/card.png" />
+  <meta name="twitter:image:alt" content="A Sierpinski triangle in red, yellow and blue, drawn from thousands of dots by a Python program." />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/weblog/weblog.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Using AI to write Python games is fine. Knowing the functions is what makes it work.",
+    "description": "Using AI tools to write Python is fine if you know what the functions do. A Sierpinski triangle made of sprites slows to 2 fps; the same picture drawn with game.plot() keeps its speed at 250,000 dots.",
+    "image": "https://pyweblib.org/weblog/ai-python-games-know-your-functions/card.png",
+    "datePublished": "2026-10-22",
+    "dateModified": "2026-10-22",
+    "mainEntityOfPage": "https://pyweblib.org/weblog/ai-python-games-know-your-functions/",
+    "author": { "@type": "Organization", "name": "PyWebLib", "url": "https://pyweblib.org/" },
+    "publisher": { "@id": "https://pyweblib.org/#org" },
+    "isPartOf": { "@type": "Blog", "name": "WeBlog", "url": "https://pyweblib.org/weblog/" },
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img class="logo-mark" src="/favicon.svg" alt="" width="32" height="32" />
+        <span>PyWebLib</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="header-link" href="https://play.pyweblib.org/docs/">Docs</a>
+        <a class="header-link" href="https://play.pyweblib.org/community/">Community</a>
+        <a class="header-link" href="/weblog/">WeBlog</a>
+        <a class="btn btn-primary btn-nav" href="https://play.pyweblib.org/">Open the Playground</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="post">
+      <header class="post-head">
+        <p class="eyebrow"><a href="/weblog/">WeBlog</a> &middot; Games</p>
+        <h1>Using AI to write Python games is fine. Knowing the functions is what makes it work.</h1>
+        <p class="lede">Two programs below draw the same picture. Both are correct Python, and an AI assistant could easily write either one. One of them slows to 2 frames a second. The other draws a quarter of a million dots without slowing down. Telling them apart doesn't take a better AI. It takes knowing what the functions do.</p>
+        <p class="post-meta"><time datetime="2026-10-22">22 October 2026</time> &middot; 7 minute read</p>
+      </header>
+
+      <h2 id="ai">Yes, you can use AI to help you code</h2>
+      <p>Lots of people now write code with an AI assistant like ChatGPT, Claude or Copilot open beside them. Professional programmers do it every day. It's quick at the boring parts, it's good at explaining an error message, and it can get you from a blank page to something that runs. That's a fair way to use a tool.</p>
+      <p>But the AI doesn't know what you're trying to make, and it doesn't have to live with the result. It writes code that <em>looks</em> right. Whether it <em>is</em> right for your game is up to you, and you can only judge that if you understand two things:</p>
+      <ul>
+        <li><strong>What the code does</strong>, line by line. If you can't explain it, you can't fix it when it breaks.</li>
+        <li><strong>What the library can do.</strong> You need to know which tools exist, so you can ask for the right one and notice when you get the wrong one.</li>
+      </ul>
+      <p>The second one is easy to skip, and it's what this post is about. Here's an example where it makes all the difference.</p>
+
+      <div class="callout">
+        <p><strong>At school?</strong> Your teacher decides when AI tools are allowed, and for an assessment the answer may well be no. Check first.</p>
+      </div>
+
+      <h2 id="triangle">One triangle, two programs</h2>
+      <p>The <strong>Sierpinski triangle</strong> is a famous fractal: a triangle made of three smaller triangles, each made of three smaller ones, forever. There's a surprising way to draw it, called the <strong>chaos game</strong>:</p>
+      <ol>
+        <li>Pick one of the triangle's three corners at random.</li>
+        <li>Move halfway from where you are towards that corner.</li>
+        <li>Put a dot there. Go back to step 1.</li>
+      </ol>
+      <p>It feels like it should make a random mess. It doesn't. After a few thousand dots the triangle appears, holes and all. The colour of each dot shows which corner it just jumped towards.</p>
+      <p>Both programs below do exactly this, 20 or 200 dots each frame, with a label at the top that counts the dots and measures the <strong>frames per second</strong> (fps) using <code>time.time()</code>. Apart from how many dots they draw each frame, the difference is one line inside the loop.</p>
+
+      <h3 id="sprites">Version A: a sprite for every dot</h3>
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="sprites.jpg" width="476" height="356" style="aspect-ratio: 476 / 356"
+               aria-label="A Sierpinski triangle slowly filling in with dots while the label at the top shows the frame rate falling from 19 to 4 frames per second.">
+          <source src="sprites.mp4" type="video/mp4" />
+        </video>
+        <figcaption>Version A running in the Playground, in real time. Watch the fps number at the top.</figcaption>
+      </figure>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">sierpinski_sprites.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> game
+<span class="k">import</span> random
+<span class="k">import</span> time
+
+game.<span class="f">window</span>(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#1b1030"</span>)
+
+corners = [(<span class="n">240</span>, <span class="n">44</span>), (<span class="n">30</span>, <span class="n">340</span>), (<span class="n">450</span>, <span class="n">340</span>)]
+colours = [<span class="s">"#ff4d6d"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#4dabf7"</span>]
+x, y = <span class="n">240</span>, <span class="n">200</span>
+
+info = game.<span class="f">label</span>(<span class="s">"counting..."</span>, <span class="n">240</span>, <span class="n">18</span>, <span class="n">16</span>, <span class="s">"#ffffff"</span>, <span class="s">"#000000"</span>)
+dots = <span class="n">0</span>
+frames = <span class="n">0</span>
+start = time.<span class="f">time</span>()
+
+<span class="k">while</span> game.<span class="f">playing</span>():
+    <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">20</span>):
+        c = random.<span class="f">randint</span>(<span class="n">0</span>, <span class="n">2</span>)
+        x = (x + corners[c][<span class="n">0</span>]) / <span class="n">2</span>
+        y = (y + corners[c][<span class="n">1</span>]) / <span class="n">2</span>
+        game.<span class="f">box</span>(x, y, <span class="n">2</span>, <span class="n">2</span>, colours[c])   <span class="c"># a new sprite for every dot</span>
+        dots = dots + <span class="n">1</span>
+
+    frames = frames + <span class="n">1</span>
+    <span class="k">if</span> time.<span class="f">time</span>() - start &gt;= <span class="n">1</span>:
+        fps = frames / (time.<span class="f">time</span>() - start)
+        info.content = <span class="f">str</span>(dots) + <span class="s">" sprites, "</span> + <span class="f">str</span>(<span class="f">round</span>(fps)) + <span class="s">" fps"</span>
+        frames = <span class="n">0</span>
+        start = time.<span class="f">time</span>()
+
+    game.<span class="f">frame</span>()
+</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IGdhbWUKaW1wb3J0IHJhbmRvbQppbXBvcnQgdGltZQoKZ2FtZS53aW5kb3coNDgwLCAzNjAsIGJhY2tncm91bmQ9IiMxYjEwMzAiKQoKY29ybmVycyA9IFsoMjQwLCA0NCksICgzMCwgMzQwKSwgKDQ1MCwgMzQwKV0KY29sb3VycyA9IFsiI2ZmNGQ2ZCIsICIjZmZkNDNiIiwgIiM0ZGFiZjciXQp4LCB5ID0gMjQwLCAyMDAKCmluZm8gPSBnYW1lLmxhYmVsKCJjb3VudGluZy4uLiIsIDI0MCwgMTgsIDE2LCAiI2ZmZmZmZiIsICIjMDAwMDAwIikKZG90cyA9IDAKZnJhbWVzID0gMApzdGFydCA9IHRpbWUudGltZSgpCgp3aGlsZSBnYW1lLnBsYXlpbmcoKToKICAgIGZvciBpIGluIHJhbmdlKDIwKToKICAgICAgICBjID0gcmFuZG9tLnJhbmRpbnQoMCwgMikKICAgICAgICB4ID0gKHggKyBjb3JuZXJzW2NdWzBdKSAvIDIKICAgICAgICB5ID0gKHkgKyBjb3JuZXJzW2NdWzFdKSAvIDIKICAgICAgICBnYW1lLmJveCh4LCB5LCAyLCAyLCBjb2xvdXJzW2NdKSAgICMgYSBuZXcgc3ByaXRlIGZvciBldmVyeSBkb3QKICAgICAgICBkb3RzID0gZG90cyArIDEKCiAgICBmcmFtZXMgPSBmcmFtZXMgKyAxCiAgICBpZiB0aW1lLnRpbWUoKSAtIHN0YXJ0ID49IDE6CiAgICAgICAgZnBzID0gZnJhbWVzIC8gKHRpbWUudGltZSgpIC0gc3RhcnQpCiAgICAgICAgaW5mby5jb250ZW50ID0gc3RyKGRvdHMpICsgIiBzcHJpdGVzLCAiICsgc3RyKHJvdW5kKGZwcykpICsgIiBmcHMiCiAgICAgICAgZnJhbWVzID0gMAogICAgICAgIHN0YXJ0ID0gdGltZS50aW1lKCkKCiAgICBnYW1lLmZyYW1lKCkK">Open in the Playground</a>
+        <span class="note">Opens with this code already in the editor.</span>
+      </p>
+      <p><code>game.box()</code> makes a sprite: a plain coloured rectangle, here 2 pixels square. <code>game.sprite()</code>, <code>game.circle()</code> and <code>game.label()</code> all make sprites too, and they all behave the same way. A sprite is something you can move, spin, check for collisions or remove later, so the game keeps track of every one.</p>
+
+      <h3 id="plot">Version B: ink with game.plot()</h3>
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="plot.jpg" width="476" height="356" style="aspect-ratio: 476 / 356"
+               aria-label="A Sierpinski triangle filling in quickly and becoming solid, while the label at the top stays at about 21 frames per second past 50,000 dots.">
+          <source src="plot.mp4" type="video/mp4" />
+        </video>
+        <figcaption>Version B, also in real time. Ten times as many dots per frame, and the fps doesn't move.</figcaption>
+      </figure>
+
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">sierpinski_plot.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> game
+<span class="k">import</span> random
+<span class="k">import</span> time
+
+game.<span class="f">window</span>(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#1b1030"</span>)
+
+corners = [(<span class="n">240</span>, <span class="n">44</span>), (<span class="n">30</span>, <span class="n">340</span>), (<span class="n">450</span>, <span class="n">340</span>)]
+colours = [<span class="s">"#ff4d6d"</span>, <span class="s">"#ffd43b"</span>, <span class="s">"#4dabf7"</span>]
+x, y = <span class="n">240</span>, <span class="n">200</span>
+
+info = game.<span class="f">label</span>(<span class="s">"counting..."</span>, <span class="n">240</span>, <span class="n">18</span>, <span class="n">16</span>, <span class="s">"#ffffff"</span>, <span class="s">"#000000"</span>)
+dots = <span class="n">0</span>
+frames = <span class="n">0</span>
+start = time.<span class="f">time</span>()
+
+<span class="k">while</span> game.<span class="f">playing</span>():
+    <span class="k">for</span> i <span class="k">in</span> <span class="f">range</span>(<span class="n">200</span>):
+        c = random.<span class="f">randint</span>(<span class="n">0</span>, <span class="n">2</span>)
+        x = (x + corners[c][<span class="n">0</span>]) / <span class="n">2</span>
+        y = (y + corners[c][<span class="n">1</span>]) / <span class="n">2</span>
+        game.<span class="f">plot</span>(x, y, colours[c])   <span class="c"># a dot of ink, stamped once</span>
+        dots = dots + <span class="n">1</span>
+
+    frames = frames + <span class="n">1</span>
+    <span class="k">if</span> time.<span class="f">time</span>() - start &gt;= <span class="n">1</span>:
+        fps = frames / (time.<span class="f">time</span>() - start)
+        info.content = <span class="f">str</span>(dots) + <span class="s">" dots, "</span> + <span class="f">str</span>(<span class="f">round</span>(fps)) + <span class="s">" fps"</span>
+        frames = <span class="n">0</span>
+        start = time.<span class="f">time</span>()
+
+    game.<span class="f">frame</span>()
+</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IGdhbWUKaW1wb3J0IHJhbmRvbQppbXBvcnQgdGltZQoKZ2FtZS53aW5kb3coNDgwLCAzNjAsIGJhY2tncm91bmQ9IiMxYjEwMzAiKQoKY29ybmVycyA9IFsoMjQwLCA0NCksICgzMCwgMzQwKSwgKDQ1MCwgMzQwKV0KY29sb3VycyA9IFsiI2ZmNGQ2ZCIsICIjZmZkNDNiIiwgIiM0ZGFiZjciXQp4LCB5ID0gMjQwLCAyMDAKCmluZm8gPSBnYW1lLmxhYmVsKCJjb3VudGluZy4uLiIsIDI0MCwgMTgsIDE2LCAiI2ZmZmZmZiIsICIjMDAwMDAwIikKZG90cyA9IDAKZnJhbWVzID0gMApzdGFydCA9IHRpbWUudGltZSgpCgp3aGlsZSBnYW1lLnBsYXlpbmcoKToKICAgIGZvciBpIGluIHJhbmdlKDIwMCk6CiAgICAgICAgYyA9IHJhbmRvbS5yYW5kaW50KDAsIDIpCiAgICAgICAgeCA9ICh4ICsgY29ybmVyc1tjXVswXSkgLyAyCiAgICAgICAgeSA9ICh5ICsgY29ybmVyc1tjXVsxXSkgLyAyCiAgICAgICAgZ2FtZS5wbG90KHgsIHksIGNvbG91cnNbY10pICAgIyBhIGRvdCBvZiBpbmssIHN0YW1wZWQgb25jZQogICAgICAgIGRvdHMgPSBkb3RzICsgMQoKICAgIGZyYW1lcyA9IGZyYW1lcyArIDEKICAgIGlmIHRpbWUudGltZSgpIC0gc3RhcnQgPj0gMToKICAgICAgICBmcHMgPSBmcmFtZXMgLyAodGltZS50aW1lKCkgLSBzdGFydCkKICAgICAgICBpbmZvLmNvbnRlbnQgPSBzdHIoZG90cykgKyAiIGRvdHMsICIgKyBzdHIocm91bmQoZnBzKSkgKyAiIGZwcyIKICAgICAgICBmcmFtZXMgPSAwCiAgICAgICAgc3RhcnQgPSB0aW1lLnRpbWUoKQoKICAgIGdhbWUuZnJhbWUoKQo">Open in the Playground</a>
+        <span class="note">Opens with this code already in the editor.</span>
+      </p>
+      <p><a href="https://play.pyweblib.org/docs/game/plot/"><code>game.plot(x, y, color)</code></a> stamps a dot of <strong>ink</strong> onto the window. Ink isn't a sprite. You can't move it or check it with <code>touches()</code>. It just stays where you put it, like paint.</p>
+
+      <h2 id="numbers">The numbers</h2>
+      <p>We left both programs running and wrote down what their labels said:</p>
+      <ul>
+        <li><strong>Version A (sprites):</strong> 19 fps at 400 sprites, 8 to 9 fps at 1,000, 4 fps at 3,000, and <strong>2 fps at 5,000</strong>. By then the window updates twice a second, and it keeps getting worse.</li>
+        <li><strong>Version B (plot):</strong> 21 fps at 4,200 dots, 22 fps at 52,000 dots, and <strong>20 fps at 251,000 dots</strong>. Flat the whole way.</li>
+      </ul>
+      <p>These were measured in Microsoft Edge on a fast desktop computer. A school laptop or a phone will give lower numbers, and version A will hit the wall sooner, but the shape of the story is the same everywhere.</p>
+      <div class="callout">
+        <p><strong>Why 21 and not 30?</strong> <code>game.frame()</code> aims for 30 frames a second by waiting about a thirtieth of a second after each frame. Version B does 200 dots of maths before that wait, so it settles at about 21. What matters is that the number stays put while the dots pile up.</p>
+      </div>
+
+      <h2 id="why">Why one crawls and the other doesn't</h2>
+      <p>Sprites are made to move, so the game redraws them from scratch every frame. Each time <code>game.frame()</code> runs, it sends every sprite (its position, size, colour, angle and more) from Python to the page, which wipes the window and draws them all again. Version A adds 20 sprites a frame and never removes any, so every frame has more work than the one before. At 5,000 sprites, each frame redraws 5,000 rectangles that haven't moved at all.</p>
+      <p>Ink is stamped once onto its own layer, and that layer is never wiped. Each frame only sends the dots that are new, and after that they're just pixels. Dot number 251,000 costs exactly as much as dot number 1. That's why version B can draw ten times as many dots per frame and still win easily.</p>
+      <p>Neither program is wrong. There's no error message, and both make a triangle. If you asked an AI for "a Sierpinski triangle with the PyWebLib game library", you could get either one. The person who knows that <code>game.plot()</code> exists, and what it's for, is the one who can ask for it, or spot the problem and fix it in one line.</p>
+      <p>It works the other way too. Ink is the wrong tool for a player, an enemy or a coin, because those need to move, collide and disappear. <strong>Things that move or interact are sprites. Pictures that build up are ink.</strong> Knowing that rule is worth more than any single program.</p>
+
+      <h2 id="docs">Read the docs, sometimes</h2>
+      <p>Nobody reads documentation for fun, and you don't need to read all of it. But when you're about to use a function for the first time, or something is slow or acting strangely, five minutes on its page can save you an hour of guessing.</p>
+      <p>The <a href="https://play.pyweblib.org/docs/game/plot/">game.plot() page</a> has a section called <em>Why not just use sprites?</em> It explains everything in this post in four short paragraphs, and it was sitting there before anyone wrote a line of the slow version.</p>
+      <div class="callout">
+        <p><strong>Tip for using an AI assistant:</strong> AI tools often guess that <code>import game</code> means pygame, and write code that doesn't work here. PyWebLib has a plain-text version of its whole reference made for AI assistants to read: <a href="https://play.pyweblib.org/llms-full.txt">play.pyweblib.org/llms-full.txt</a>. Paste that link into your chat (or the text itself, if your assistant can't open links) and ask it to use PyWebLib's real functions. Its answers get much better.</p>
+      </div>
+
+      <h2 id="leaderboard">A leaderboard in one line</h2>
+      <p>Here's another feature that's easy to miss if you don't know it exists. Every published game can have its own <strong>leaderboard</strong>, and you don't have to build it. You write one line:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">snippet.py</span></div>
+        <pre class="demo-code"><code><span class="k">if</span> frames == <span class="n">0</span>:
+    game.<span class="f">submit_score</span>(score)          <span class="c"># onto the leaderboard</span>
+    game.<span class="f">game_over</span>(<span class="s">"Time's up! Score: "</span> + <span class="f">str</span>(score), retry=<span class="k">True</span>)</code></pre>
+      </div>
+      <p>Publish the game, and if its code contains <code>game.submit_score</code>, its page in the gallery gets a scoreboard with the top 10 players, one line each with their best score. In the Playground the line quietly does nothing, so you can test as much as you like without filling the board with practice runs.</p>
+      <p>An AI assistant that doesn't know PyWebLib might build you a whole scoreboard by hand, or tell you that you need a server and a database. You don't. The <a href="https://play.pyweblib.org/docs/game/submit-score/">game.submit_score() page</a> has a full example game, and the reasons a board might not show up (the most common: writing <code>submit_score(score)</code> without the <code>game.</code> in front).</p>
+
+      <h2 id="functions">The functions worth knowing</h2>
+      <p>You don't need to memorise the library. You need to know these exist, so you know what to ask for. Each one has its own page with examples:</p>
+      <ul>
+        <li><a href="https://play.pyweblib.org/docs/game/window/"><code>game.window()</code></a>: open the game window. Always first.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/sprite/"><code>game.sprite()</code></a>: a character, enemy or object you can move around.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/frame/"><code>game.frame()</code></a> and <code>game.playing()</code>: the game loop. Draw a frame, wait, repeat.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/pressed/"><code>game.pressed()</code></a>: is a key being held down?</li>
+        <li><a href="https://play.pyweblib.org/docs/game/touches/"><code>a.touches(b)</code></a>: are two sprites overlapping? Collisions in one line.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/label/"><code>game.label()</code></a>: words on the screen, like a score or a timer.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/button/"><code>game.button()</code></a>: a real clickable button, for menus and "Play again".</li>
+        <li><a href="https://play.pyweblib.org/docs/game/clicked/"><code>game.clicked()</code></a>: true once per click or tap, so it works on phones too.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/game-over/"><code>game.game_over()</code></a>: end the game with a message, and let players tap to try again.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/sound/"><code>game.sound()</code></a>: ten built-in arcade sounds, no files needed.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/save/"><code>game.save()</code> and <code>game.load()</code></a>: remember coins, levels or high scores between runs.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/anchor/"><code>sprite.anchor</code></a>: the point a sprite stands on and spins around, for feet on the ground and swinging hammers.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/submit-score/"><code>game.submit_score()</code></a>: your game's own leaderboard, in one line.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/plot/"><code>game.plot()</code></a>: ink that stays, for fractals, trails and paintings. Hundreds of thousands of dots at full speed.</li>
+      </ul>
+      <p>The <a href="https://play.pyweblib.org/docs/game/">game library guide</a> puts them all together in one game, step by step.</p>
+
+      <section class="post-end">
+        <h2>Use the tools. Know the tools.</h2>
+        <p>Open the slow version, change one line to <code>game.plot()</code>, and watch it fly. Then make something of your own, with or without an AI beside you, and share it to the gallery.</p>
+        <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/#code=aW1wb3J0IGdhbWUKaW1wb3J0IHJhbmRvbQppbXBvcnQgdGltZQoKZ2FtZS53aW5kb3coNDgwLCAzNjAsIGJhY2tncm91bmQ9IiMxYjEwMzAiKQoKY29ybmVycyA9IFsoMjQwLCA0NCksICgzMCwgMzQwKSwgKDQ1MCwgMzQwKV0KY29sb3VycyA9IFsiI2ZmNGQ2ZCIsICIjZmZkNDNiIiwgIiM0ZGFiZjciXQp4LCB5ID0gMjQwLCAyMDAKCmluZm8gPSBnYW1lLmxhYmVsKCJjb3VudGluZy4uLiIsIDI0MCwgMTgsIDE2LCAiI2ZmZmZmZiIsICIjMDAwMDAwIikKZG90cyA9IDAKZnJhbWVzID0gMApzdGFydCA9IHRpbWUudGltZSgpCgp3aGlsZSBnYW1lLnBsYXlpbmcoKToKICAgIGZvciBpIGluIHJhbmdlKDIwKToKICAgICAgICBjID0gcmFuZG9tLnJhbmRpbnQoMCwgMikKICAgICAgICB4ID0gKHggKyBjb3JuZXJzW2NdWzBdKSAvIDIKICAgICAgICB5ID0gKHkgKyBjb3JuZXJzW2NdWzFdKSAvIDIKICAgICAgICBnYW1lLmJveCh4LCB5LCAyLCAyLCBjb2xvdXJzW2NdKSAgICMgYSBuZXcgc3ByaXRlIGZvciBldmVyeSBkb3QKICAgICAgICBkb3RzID0gZG90cyArIDEKCiAgICBmcmFtZXMgPSBmcmFtZXMgKyAxCiAgICBpZiB0aW1lLnRpbWUoKSAtIHN0YXJ0ID49IDE6CiAgICAgICAgZnBzID0gZnJhbWVzIC8gKHRpbWUudGltZSgpIC0gc3RhcnQpCiAgICAgICAgaW5mby5jb250ZW50ID0gc3RyKGRvdHMpICsgIiBzcHJpdGVzLCAiICsgc3RyKHJvdW5kKGZwcykpICsgIiBmcHMiCiAgICAgICAgZnJhbWVzID0gMAogICAgICAgIHN0YXJ0ID0gdGltZS50aW1lKCkKCiAgICBnYW1lLmZyYW1lKCkK">Fix the slow triangle</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>
+        <strong>PyWebLib</strong> is free and open source, built on
+        <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>. MIT licensed.
+      </p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://play.pyweblib.org/">Playground</a>
+        <a href="/weblog/">WeBlog</a>
+        <a href="https://play.pyweblib.org/about/">About</a>
+        <a href="https://play.pyweblib.org/privacy/">Privacy</a>
+        <a href="https://play.pyweblib.org/terms/">Terms</a>
+        <a href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics, same beacon and token as the front page. -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "df284b0e1a81489eb9474fb01cad7f34"}'></script>
+</body>
+</html>
