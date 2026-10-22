@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A frog, a fly and some black tea: a Python game written in Portuguese | WeBlog</title>
+  <meta name="description" content="O chá preto come as moscas is a complete Python game from the PyWebLib gallery, written in Portuguese: a frog eats falling flies, with points, lives, five levels and tap-able arrows for phones. How it works, a Portuguese to English glossary, and ideas to make it yours." />
+  <link rel="canonical" href="https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#4f46e5" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#080b18" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PyWebLib" />
+  <meta property="og:title" content="A frog, a fly and some black tea: a Python game written in Portuguese" />
+  <meta property="og:description" content="A frog called Black Tea, falling flies, five levels and arrows you can tap on a phone. A complete game from the gallery, and how it works." />
+  <meta property="og:url" content="https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/" />
+  <meta property="og:image" content="https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A frog game made in Python: a frog among pink lotus flowers, a fly at the top, a heart obstacle and on-screen arrow buttons, with Pontos, Nível and Vidas at the top." />
+  <meta property="article:published_time" content="2026-09-26" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="A frog, a fly and some black tea: a Python game written in Portuguese" />
+  <meta name="twitter:description" content="A frog called Black Tea, falling flies, five levels and arrows you can tap on a phone. A complete game from the gallery, and how it works." />
+  <meta name="twitter:image" content="https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/card.png" />
+  <meta name="twitter:image:alt" content="A frog game made in Python: a frog among pink lotus flowers, a fly at the top, a heart obstacle and on-screen arrow buttons, with Pontos, Nível and Vidas at the top." />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/weblog/weblog.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "A frog, a fly and some black tea: a Python game written in Portuguese",
+    "description": "A complete Python game from the PyWebLib gallery, written in Portuguese: a frog eats falling flies, with points, lives, levels and tap-able arrows for phones.",
+    "image": "https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/card.png",
+    "datePublished": "2026-09-26",
+    "dateModified": "2026-09-26",
+    "mainEntityOfPage": "https://pyweblib.org/weblog/cha-preto-frog-fly-python-game/",
+    "author": { "@type": "Organization", "name": "PyWebLib", "url": "https://pyweblib.org/" },
+    "publisher": { "@id": "https://pyweblib.org/#org" },
+    "isPartOf": { "@type": "Blog", "name": "WeBlog", "url": "https://pyweblib.org/weblog/" },
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img class="logo-mark" src="/favicon.svg" alt="" width="32" height="32" />
+        <span>PyWebLib</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="header-link" href="https://play.pyweblib.org/docs/">Docs</a>
+        <a class="header-link" href="https://play.pyweblib.org/community/">Community</a>
+        <a class="header-link" href="/weblog/">WeBlog</a>
+        <a class="btn btn-primary btn-nav" href="https://play.pyweblib.org/">Open the Playground</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="post">
+      <header class="post-head">
+        <p class="eyebrow"><a href="/weblog/">WeBlog</a> &middot; Games</p>
+        <h1>A frog, a fly and some black tea: a Python game written in Portuguese</h1>
+        <p class="lede">A hungry frog, flies falling from the sky, five levels that get faster and faster, and arrows you can tap on a phone. It's a complete arcade game from the gallery, written in Python and in Portuguese. Here's how it works, what its words mean, and a few ways to make it your own.</p>
+        <p class="post-meta"><time datetime="2026-09-26">26 September 2026</time> &middot; 6 minute read</p>
+      </header>
+
+      <h2 id="game">Meet Chá Preto</h2>
+      <p><em>O chá preto come as moscas</em> means "Black Tea eats the flies". Black Tea (<em>chá preto</em>) is the frog's name. The game was made by <a href="https://play.pyweblib.org/game/?id=ae2c1a35-059f-4b7e-b032-b2fb5b698859">Nilsan L.</a> and shared to the <a href="https://play.pyweblib.org/community/">PyWebLib gallery</a>. Around here we call it Chapreto for short.</p>
+
+      <figure class="fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="chapreto.jpg" width="476" height="356" style="aspect-ratio: 476 / 356"
+               aria-label="The frog hops around a pond of pink lotus flowers, eating falling flies. The score climbs past 20 and the background changes from sky blue to green to orange as the levels go up, and pink hearts start to fall.">
+          <source src="chapreto.mp4" type="video/mp4" />
+        </video>
+        <figcaption>Nilsan L.'s game running in the Playground, in real time, from level 1 to level 3. <a href="https://play.pyweblib.org/game/?id=ae2c1a35-059f-4b7e-b032-b2fb5b698859">Play it in the gallery</a></figcaption>
+      </figure>
+
+      <p>Here's how you play:</p>
+      <ul>
+        <li>Move the frog with the <strong>arrow keys</strong>, or <strong>tap the arrows</strong> in the corner on a phone. Each tap is one hop.</li>
+        <li>Catch the falling fly to score a point (<em>pontos</em>). A new fly drops somewhere else straight away.</li>
+        <li>Miss a fly and it hits the ground: you lose one of your three lives (<em>vidas</em>). Hopping into the edge of the pond costs a life too, so stay away from the walls.</li>
+        <li>Every 10 points is a new level (<em>nível</em>). The flies fall faster, the frog hops further, and the whole pond changes colour: sky blue, green, orange, red, then purple.</li>
+        <li>From level 2, a pink heart 💗 starts falling as well. Touch it and you lose a life and get sent back to the middle.</li>
+      </ul>
+
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/game/?id=ae2c1a35-059f-4b7e-b032-b2fb5b698859">Play it</a>
+        <span class="note">Opens Chá Preto in the gallery. Works on a phone too.</span>
+      </p>
+
+      <h2 id="why">Why it's a great game</h2>
+      <p>Lots of first games are a sprite that moves. This one has everything a real arcade game needs, in 206 lines:</p>
+      <ul>
+        <li><strong>A goal and a score.</strong> Catch flies, watch the number go up.</li>
+        <li><strong>A way to lose.</strong> Three lives, three different ways to lose them, and a <em>Fim do jogo!</em> ("Game over!") screen.</li>
+        <li><strong>A difficulty ramp.</strong> Five levels, each one faster than the last, and a new danger from level 2. The game is easy to start and gets hard slowly, which is exactly what keeps people playing.</li>
+        <li><strong>It works on phones.</strong> Most people who open a game from a link are on a phone, with no arrow keys. Nilsan thought of that and drew arrow buttons right into the game.</li>
+        <li><strong>A world to play in.</strong> Sixteen lotus flower sprites 🪷 make the pond, before a single line of game logic.</li>
+      </ul>
+      <p>And it's written in Portuguese. Python's own words stay in English (<code>if</code>, <code>while</code>, <code>import</code>), but everything Nilsan named, the frog's speed, the scoreboard, the buttons, the comments, is in Portuguese. Python doesn't mind at all. You can name things in whatever language you think in, and your code is easier to read and fix when you do.</p>
+
+      <h2 id="glossary">Portuguese to English: the words in the code</h2>
+      <p>If you don't speak Portuguese, here's what the names in the code mean. Reading the code with this table is a great way to learn a few words, too.</p>
+      <div class="table-wrap">
+        <table class="glossary">
+          <thead><tr><th>Portuguese</th><th>English</th></tr></thead>
+          <tbody>
+            <tr><td><code>sapo</code></td><td>frog</td></tr>
+            <tr><td><code>mosca</code></td><td>fly</td></tr>
+            <tr><td><code>chá preto</code></td><td>black tea (the frog's name)</td></tr>
+            <tr><td><code>jogador</code></td><td>player</td></tr>
+            <tr><td><code>pontos</code></td><td>points</td></tr>
+            <tr><td><code>vidas</code>, <code>vida</code></td><td>lives, life</td></tr>
+            <tr><td><code>nivel</code>, <code>nível</code></td><td>level</td></tr>
+            <tr><td><code>velocidade_mosca</code></td><td>fly speed</td></tr>
+            <tr><td><code>velocidade_sapo</code></td><td>frog speed</td></tr>
+            <tr><td><code>placar</code></td><td>scoreboard</td></tr>
+            <tr><td><code>nivel_texto</code></td><td>level text</td></tr>
+            <tr><td><code>obstaculo</code></td><td>obstacle</td></tr>
+            <tr><td><code>esquerda</code>, <code>direita</code></td><td>left, right</td></tr>
+            <tr><td><code>cima</code>, <code>baixo</code></td><td>up, down</td></tr>
+            <tr><td><code>cenário</code></td><td>scenery</td></tr>
+            <tr><td><code>botões para celular</code></td><td>buttons for the phone</td></tr>
+            <tr><td><code>teclado</code></td><td>keyboard</td></tr>
+            <tr><td><code>paredes</code></td><td>walls</td></tr>
+            <tr><td><code>cor</code></td><td>colour</td></tr>
+            <tr><td><code>mosca caindo</code></td><td>falling fly</td></tr>
+            <tr><td><code>sapo comeu a mosca</code></td><td>the frog ate the fly</td></tr>
+            <tr><td><code>nova posição</code></td><td>new position</td></tr>
+            <tr><td><code>chegou ao chão</code></td><td>reached the ground</td></tr>
+            <tr><td><code>fim do jogo</code></td><td>end of the game (game over)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="eat">How the frog eats the fly</h2>
+      <p>The heart of the game is a few lines inside the game loop. Every frame (30 times a second), the fly falls a little, and the game checks whether the frog has caught it:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># 🪰 Mosca caindo</span>
+mosca.y += velocidade_mosca
+
+<span class="c"># 🐸 Sapo comeu a mosca</span>
+<span class="k">if</span> player.<span class="f">touches</span>(mosca):
+
+    pontos += <span class="n">1</span>
+    placar.content = <span class="s">"Pontos: "</span> + <span class="f">str</span>(pontos)
+
+    <span class="c"># (the level code goes here, see below)</span>
+
+    <span class="c"># 🪰 Nova posição da mosca</span>
+    mosca.x = random.<span class="f">randint</span>(<span class="n">30</span>, <span class="n">450</span>)
+    mosca.y = <span class="n">50</span>
+
+<span class="c"># 🪰 Mosca chegou ao chão</span>
+<span class="k">elif</span> mosca.y &gt; <span class="n">350</span>:
+
+    vidas -= <span class="n">1</span>
+    vida.content = <span class="s">"Vidas: "</span> + <span class="f">str</span>(vidas)
+
+    mosca.x = random.<span class="f">randint</span>(<span class="n">30</span>, <span class="n">450</span>)
+    mosca.y = <span class="n">50</span></code></pre>
+      </div>
+      <p>Line by line:</p>
+      <ul>
+        <li><code>mosca.y += velocidade_mosca</code> moves the fly down by the fly speed. In a PyWebLib game, y grows <em>downwards</em>, so adding to y means falling.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/touches/"><code>player.touches(mosca)</code></a> is True when the frog and the fly overlap. That's the whole collision check, in one line.</li>
+        <li>When the frog eats the fly, the score goes up and the fly jumps back to the top (<code>mosca.y = 50</code>) at a random spot along the top, with <code>random.randint(30, 450)</code>. It's the same fly every time. It just looks like a new one.</li>
+        <li><code>elif mosca.y &gt; 350</code> catches the fly that got away. It's an <code>elif</code>, so it only runs when the frog <em>didn't</em> eat it.</li>
+      </ul>
+      <p>The scoreboard is three labels, made once at the top of the program with <a href="https://play.pyweblib.org/docs/game/label/"><code>game.label()</code></a>. Changing a label's <code>.content</code> changes the words on screen, which is what <code>placar.content = "Pontos: " + str(pontos)</code> does:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># Placar</span>
+placar = game.<span class="f">label</span>(<span class="s">"Pontos: 0"</span>, <span class="n">70</span>, <span class="n">30</span>, size=<span class="n">20</span>)
+vida = game.<span class="f">label</span>(<span class="s">"Vidas: 3"</span>, <span class="n">400</span>, <span class="n">30</span>, size=<span class="n">20</span>)
+nivel_texto = game.<span class="f">label</span>(<span class="s">"Nível: 1"</span>, <span class="n">240</span>, <span class="n">30</span>, size=<span class="n">20</span>)</code></pre>
+      </div>
+
+      <h2 id="phone">Arrow buttons for phones, made from sprites</h2>
+      <p>This is the clever part. A phone has no arrow keys, so Nilsan made four arrow emoji into <a href="https://play.pyweblib.org/docs/game/sprite/">sprites</a> and put them in the bottom-left corner:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># 🎮 Botões para celular</span>
+esquerda = game.<span class="f">sprite</span>(<span class="s">"⬅️"</span>, <span class="n">50</span>, <span class="n">315</span>, size=<span class="n">40</span>)
+baixo = game.<span class="f">sprite</span>(<span class="s">"⬇️"</span>, <span class="n">100</span>, <span class="n">315</span>, size=<span class="n">40</span>)
+cima = game.<span class="f">sprite</span>(<span class="s">"⬆️"</span>, <span class="n">100</span>, <span class="n">265</span>, size=<span class="n">40</span>)
+direita = game.<span class="f">sprite</span>(<span class="s">"➡️"</span>, <span class="n">150</span>, <span class="n">315</span>, size=<span class="n">40</span>)</code></pre>
+      </div>
+      <p>Look at the numbers: the up arrow sits at (100, 265), right above the down arrow at (100, 315), with left and right on either side. That's the same shape as the arrow keys on a keyboard. Then, in the loop, the keyboard and the touch buttons each get their turn (here are left and right; up and down work the same way):</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># ⌨️ Teclado</span>
+<span class="k">if</span> game.<span class="f">pressed</span>(<span class="s">"left"</span>):
+    player.x -= velocidade_sapo
+
+<span class="k">if</span> game.<span class="f">pressed</span>(<span class="s">"right"</span>):
+    player.x += velocidade_sapo
+
+<span class="c"># 📱 Celular</span>
+<span class="k">if</span> esquerda.<span class="f">at_mouse</span>() <span class="k">and</span> game.<span class="f">clicked</span>():
+    player.x -= velocidade_sapo
+
+<span class="k">if</span> direita.<span class="f">at_mouse</span>() <span class="k">and</span> game.<span class="f">clicked</span>():
+    player.x += velocidade_sapo</code></pre>
+      </div>
+      <ul>
+        <li><a href="https://play.pyweblib.org/docs/game/pressed/"><code>game.pressed("left")</code></a> is True while the left arrow key is held down.</li>
+        <li><code>esquerda.at_mouse()</code> is True when the pointer, or a finger on a phone, is over the left arrow sprite.</li>
+        <li><a href="https://play.pyweblib.org/docs/game/clicked/"><code>game.clicked()</code></a> is True once for each new click or tap.</li>
+      </ul>
+      <p>Together, "the finger is on the left arrow <em>and</em> it just tapped" means "move left". The order is a nice touch, too. Python checks <code>at_mouse()</code> first, and only asks <code>game.clicked()</code> about the arrow that's actually under your finger. That matters, because <code>clicked()</code> answers True only once per tap: ask it about the wrong button first and the tap gets used up. The <a href="https://play.pyweblib.org/docs/game/clicked/">game.clicked() page</a> warns about exactly that, and this game gets it right.</p>
+      <div class="callout">
+        <p><strong>Try it yourself:</strong> any sprite can be a button. A 🔄 to restart, a ⏸️ to pause, a 🛒 to open a shop: put the sprite where you want it, then check <code>sprite.at_mouse() and game.clicked()</code> in your loop.</p>
+      </div>
+
+      <h2 id="levels">Levels that speed up</h2>
+      <p>Each time the frog eats a fly, the game works out which level you're on:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># 🎯 Nível + velocidade da mosca + velocidade do sapo</span>
+<span class="k">if</span> pontos &gt;= <span class="n">40</span>:
+    nivel = <span class="n">5</span>
+    velocidade_mosca = <span class="n">10</span>
+    velocidade_sapo = <span class="n">36</span>
+
+<span class="k">elif</span> pontos &gt;= <span class="n">30</span>:
+    nivel = <span class="n">4</span>
+    velocidade_mosca = <span class="n">8</span>
+    velocidade_sapo = <span class="n">35</span>
+
+<span class="k">elif</span> pontos &gt;= <span class="n">20</span>:
+    nivel = <span class="n">3</span>
+    velocidade_mosca = <span class="n">6</span>
+    velocidade_sapo = <span class="n">33</span>
+
+<span class="k">elif</span> pontos &gt;= <span class="n">10</span>:
+    nivel = <span class="n">2</span>
+    velocidade_mosca = <span class="n">4</span>
+    velocidade_sapo = <span class="n">32</span>
+
+<span class="k">else</span>:
+    nivel = <span class="n">1</span>
+    velocidade_mosca = <span class="n">2</span>
+    velocidade_sapo = <span class="n">20</span>
+
+nivel_texto.content = <span class="s">"Nível: "</span> + <span class="f">str</span>(nivel)</code></pre>
+      </div>
+      <p>Two things make this work well:</p>
+      <ul>
+        <li><strong>The biggest number is checked first.</strong> With 25 points, <code>pontos &gt;= 40</code> is False, <code>pontos &gt;= 30</code> is False, and <code>pontos &gt;= 20</code> is True, so it's level 3. If the checks started at 10, a score of 25 would stop at "10 or more" and be stuck on level 2 forever. Going from the top down means the first True one is the right one.</li>
+        <li><strong>The frog speeds up too.</strong> The fly speed goes 2, 4, 6, 8, 10: on level 1 a fly takes about 5 seconds to fall, and on level 5 about one second. If only the fly got faster, the game would quickly become impossible. Giving the frog bigger hops as well keeps it hard but fair.</li>
+      </ul>
+      <p>Just after this, a second <code>if</code> chain picks the pond's colour for each level, and a third part of the loop starts the 💗 falling once <code>nivel &gt;= 2</code>. Same idea each time: one number, <code>nivel</code>, decides how the whole game looks and feels.</p>
+
+      <h2 id="lives">Lives, walls and the end</h2>
+      <p>The frog has to stay in the pond. If it hops past an edge, it's put back on the edge, and it costs a life:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># 🧱 Paredes</span>
+<span class="k">if</span> player.x &lt; <span class="n">25</span>:
+    player.x = <span class="n">25</span>
+    vidas -= <span class="n">1</span>
+    vida.content = <span class="s">"Vidas: "</span> + <span class="f">str</span>(vidas)</code></pre>
+      </div>
+      <p>The same four lines are there for the right edge, the top and the bottom. Whenever lives run out, <a href="https://play.pyweblib.org/docs/game/game-over/"><code>game.game_over()</code></a> shows a banner across the game and ends the loop:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">from Nilsan's game</span></div>
+        <pre class="demo-code"><code><span class="c"># ❤️ Fim do jogo</span>
+<span class="k">if</span> vidas &lt;= <span class="n">0</span>:
+    game.<span class="f">game_over</span>(
+        <span class="s">"Fim do jogo! Pontos: "</span> + <span class="f">str</span>(pontos)
+    )</code></pre>
+      </div>
+
+      <h2 id="yours">Make it yours</h2>
+      <p>Here are a few small things you could add, to Chá Preto or to your own version. Each is a line or two, and each has a page in the docs.</p>
+
+      <h3 id="leaderboard">A leaderboard, in one line</h3>
+      <p>Every published game can have its own leaderboard, and you don't have to build it. Add <a href="https://play.pyweblib.org/docs/game/submit-score/"><code>game.submit_score(pontos)</code></a> right before <code>game.game_over</code>, and the game's page in the gallery gets a top 10. Add <code>retry=True</code> and one tap starts a new game, which is very handy on a phone:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py</span></div>
+        <pre class="demo-code"><code><span class="c"># ❤️ Fim do jogo</span>
+<span class="k">if</span> vidas &lt;= <span class="n">0</span>:
+    game.<span class="f">submit_score</span>(pontos)      <span class="c"># onto the leaderboard</span>
+    game.<span class="f">game_over</span>(
+        <span class="s">"Fim do jogo! Pontos: "</span> + <span class="f">str</span>(pontos),
+        retry=<span class="k">True</span>                 <span class="c"># one tap starts a new game</span>
+    )</code></pre>
+      </div>
+      <p>Chá Preto has a <code>game.game_over</code> in two places, so give each one the new line. Each player keeps only their best score on the board, so it doesn't matter if a score is sent twice.</p>
+
+      <h3 id="sounds">Sounds</h3>
+      <p><a href="https://play.pyweblib.org/docs/game/sound/"><code>game.sound()</code></a> has ten built-in arcade sounds, no files needed. A "coin" for every fly and a "hit" for every lost life make the game feel alive:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py</span></div>
+        <pre class="demo-code"><code><span class="c"># 🐸 Sapo comeu a mosca</span>
+<span class="k">if</span> player.<span class="f">touches</span>(mosca):
+    game.<span class="f">sound</span>(<span class="s">"coin"</span>)       <span class="c"># a happy "ding" for every fly</span>
+
+    pontos += <span class="n">1</span></code></pre>
+      </div>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py (next to each vidas -= 1)</span></div>
+        <pre class="demo-code"><code>vidas -= <span class="n">1</span>
+game.<span class="f">sound</span>(<span class="s">"hit"</span>)        <span class="c"># ouch</span></code></pre>
+      </div>
+
+      <h3 id="colour">Change the colour with game.background()</h3>
+      <p>Chá Preto changes the pond's colour by calling <code>game.window()</code> again with a new background. PyWebLib also has a function made just for this, <code>game.background()</code>. It changes only the colour, and leaves the window, the keys being held and the score counter as they are. The <a href="https://play.pyweblib.org/docs/game/window/">game.window() page</a> suggests keeping one <code>game.window()</code> at the top and using <code>game.background()</code> for every colour change after that:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py</span></div>
+        <pre class="demo-code"><code><span class="c"># 🎨 Cor do cenário</span>
+<span class="k">if</span> nivel == <span class="n">5</span>:
+    game.<span class="f">background</span>(<span class="s">"#800080"</span>)
+
+<span class="k">elif</span> nivel == <span class="n">4</span>:
+    game.<span class="f">background</span>(<span class="s">"#FF0000"</span>)</code></pre>
+      </div>
+
+      <h3 id="best">Remember the best score</h3>
+      <p><a href="https://play.pyweblib.org/docs/game/save/"><code>game.save()</code> and <code>game.load()</code></a> remember a value between games, in that browser. Load the <em>recorde</em> (record, or best score) at the top and show it, then save it when it's beaten:</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py (at the top)</span></div>
+        <pre class="demo-code"><code>recorde = game.<span class="f">load</span>(<span class="s">"recorde"</span>, <span class="n">0</span>)     <span class="c"># best score so far, 0 the first time</span>
+recorde_texto = game.<span class="f">label</span>(<span class="s">"Recorde: "</span> + <span class="f">str</span>(recorde), <span class="n">240</span>, <span class="n">60</span>, size=<span class="n">16</span>)</code></pre>
+      </div>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">upgrade.py (at the end)</span></div>
+        <pre class="demo-code"><code><span class="c"># ❤️ Fim do jogo</span>
+<span class="k">if</span> vidas &lt;= <span class="n">0</span>:
+    <span class="k">if</span> pontos &gt; recorde:
+        game.<span class="f">save</span>(<span class="s">"recorde"</span>, pontos)   <span class="c"># remembered next time</span></code></pre>
+      </div>
+
+      <h2 id="start">Start your own frog game</h2>
+      <p>Want to build one from scratch? Here's a small starter that uses the same ideas as Chá Preto, with the same Portuguese names: a frog, a falling fly, a scoreboard, two arrows you can tap, flies that speed up every 5 points, and some of the upgrades from above (sounds, the leaderboard line and tap to play again) already in. It's just over 40 lines, so there's lots of room to add lives, levels and lotus flowers of your own.</p>
+      <div class="hero-demo">
+        <div class="demo-bar"><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-name">sapo.py</span></div>
+        <pre class="demo-code"><code><span class="k">import</span> game
+<span class="k">import</span> random
+
+game.<span class="f">window</span>(<span class="n">480</span>, <span class="n">360</span>, background=<span class="s">"#87CEEB"</span>)
+
+sapo = game.<span class="f">sprite</span>(<span class="s">"🐸"</span>, <span class="n">240</span>, <span class="n">250</span>, size=<span class="n">50</span>)
+mosca = game.<span class="f">sprite</span>(<span class="s">"🪰"</span>, random.<span class="f">randint</span>(<span class="n">30</span>, <span class="n">450</span>), <span class="n">0</span>, size=<span class="n">35</span>)
+placar = game.<span class="f">label</span>(<span class="s">"Pontos: 0"</span>, <span class="n">70</span>, <span class="n">30</span>)
+
+<span class="c"># Botões para celular: two arrows you can tap</span>
+esquerda = game.<span class="f">sprite</span>(<span class="s">"⬅️"</span>, <span class="n">50</span>, <span class="n">320</span>, size=<span class="n">40</span>)
+direita = game.<span class="f">sprite</span>(<span class="s">"➡️"</span>, <span class="n">430</span>, <span class="n">320</span>, size=<span class="n">40</span>)
+
+pontos = <span class="n">0</span>
+velocidade_mosca = <span class="n">2</span>     <span class="c"># how far the fly falls each frame</span>
+velocidade_sapo = <span class="n">8</span>      <span class="c"># how far the frog moves each frame</span>
+
+<span class="k">while</span> game.<span class="f">playing</span>():
+    <span class="k">if</span> game.<span class="f">pressed</span>(<span class="s">"left"</span>):
+        sapo.x -= velocidade_sapo
+    <span class="k">if</span> game.<span class="f">pressed</span>(<span class="s">"right"</span>):
+        sapo.x += velocidade_sapo
+    <span class="k">if</span> esquerda.<span class="f">at_mouse</span>() <span class="k">and</span> game.<span class="f">clicked</span>():
+        sapo.x -= <span class="n">40</span>
+    <span class="k">if</span> direita.<span class="f">at_mouse</span>() <span class="k">and</span> game.<span class="f">clicked</span>():
+        sapo.x += <span class="n">40</span>
+
+    mosca.y += velocidade_mosca
+
+    <span class="k">if</span> sapo.<span class="f">touches</span>(mosca):
+        pontos += <span class="n">1</span>
+        placar.content = <span class="s">"Pontos: "</span> + <span class="f">str</span>(pontos)
+        game.<span class="f">sound</span>(<span class="s">"coin"</span>)
+        velocidade_mosca = <span class="n">2</span> + pontos // <span class="n">5</span>     <span class="c"># a little faster every 5 points</span>
+        mosca.x = random.<span class="f">randint</span>(<span class="n">30</span>, <span class="n">450</span>)
+        mosca.y = <span class="n">0</span>
+
+    <span class="k">elif</span> mosca.y &gt; <span class="n">370</span>:
+        game.<span class="f">sound</span>(<span class="s">"lose"</span>)
+        game.<span class="f">submit_score</span>(pontos)
+        game.<span class="f">game_over</span>(<span class="s">"Fim do jogo! Pontos: "</span> + <span class="f">str</span>(pontos), retry=<span class="k">True</span>)
+
+    game.<span class="f">frame</span>()</code></pre>
+      </div>
+      <p class="open-row">
+        <a class="btn btn-primary" href="https://play.pyweblib.org/#code=aW1wb3J0IGdhbWUKaW1wb3J0IHJhbmRvbQoKZ2FtZS53aW5kb3coNDgwLCAzNjAsIGJhY2tncm91bmQ9IiM4N0NFRUIiKQoKc2FwbyA9IGdhbWUuc3ByaXRlKCLwn5C4IiwgMjQwLCAyNTAsIHNpemU9NTApCm1vc2NhID0gZ2FtZS5zcHJpdGUoIvCfqrAiLCByYW5kb20ucmFuZGludCgzMCwgNDUwKSwgMCwgc2l6ZT0zNSkKcGxhY2FyID0gZ2FtZS5sYWJlbCgiUG9udG9zOiAwIiwgNzAsIDMwKQoKIyBCb3TDtWVzIHBhcmEgY2VsdWxhcjogdHdvIGFycm93cyB5b3UgY2FuIHRhcAplc3F1ZXJkYSA9IGdhbWUuc3ByaXRlKCLirIXvuI8iLCA1MCwgMzIwLCBzaXplPTQwKQpkaXJlaXRhID0gZ2FtZS5zcHJpdGUoIuKeoe-4jyIsIDQzMCwgMzIwLCBzaXplPTQwKQoKcG9udG9zID0gMAp2ZWxvY2lkYWRlX21vc2NhID0gMiAgICAgIyBob3cgZmFyIHRoZSBmbHkgZmFsbHMgZWFjaCBmcmFtZQp2ZWxvY2lkYWRlX3NhcG8gPSA4ICAgICAgIyBob3cgZmFyIHRoZSBmcm9nIG1vdmVzIGVhY2ggZnJhbWUKCndoaWxlIGdhbWUucGxheWluZygpOgogICAgaWYgZ2FtZS5wcmVzc2VkKCJsZWZ0Iik6CiAgICAgICAgc2Fwby54IC09IHZlbG9jaWRhZGVfc2FwbwogICAgaWYgZ2FtZS5wcmVzc2VkKCJyaWdodCIpOgogICAgICAgIHNhcG8ueCArPSB2ZWxvY2lkYWRlX3NhcG8KICAgIGlmIGVzcXVlcmRhLmF0X21vdXNlKCkgYW5kIGdhbWUuY2xpY2tlZCgpOgogICAgICAgIHNhcG8ueCAtPSA0MAogICAgaWYgZGlyZWl0YS5hdF9tb3VzZSgpIGFuZCBnYW1lLmNsaWNrZWQoKToKICAgICAgICBzYXBvLnggKz0gNDAKCiAgICBtb3NjYS55ICs9IHZlbG9jaWRhZGVfbW9zY2EKCiAgICBpZiBzYXBvLnRvdWNoZXMobW9zY2EpOgogICAgICAgIHBvbnRvcyArPSAxCiAgICAgICAgcGxhY2FyLmNvbnRlbnQgPSAiUG9udG9zOiAiICsgc3RyKHBvbnRvcykKICAgICAgICBnYW1lLnNvdW5kKCJjb2luIikKICAgICAgICB2ZWxvY2lkYWRlX21vc2NhID0gMiArIHBvbnRvcyAvLyA1ICAgICAjIGEgbGl0dGxlIGZhc3RlciBldmVyeSA1IHBvaW50cwogICAgICAgIG1vc2NhLnggPSByYW5kb20ucmFuZGludCgzMCwgNDUwKQogICAgICAgIG1vc2NhLnkgPSAwCgogICAgZWxpZiBtb3NjYS55ID4gMzcwOgogICAgICAgIGdhbWUuc291bmQoImxvc2UiKQogICAgICAgIGdhbWUuc3VibWl0X3Njb3JlKHBvbnRvcykKICAgICAgICBnYW1lLmdhbWVfb3ZlcigiRmltIGRvIGpvZ28hIFBvbnRvczogIiArIHN0cihwb250b3MpLCByZXRyeT1UcnVlKQoKICAgIGdhbWUuZnJhbWUoKQo">Open in the Playground</a>
+        <span class="note">Opens with this code already in the editor. Click the game first so it hears the arrow keys.</span>
+      </p>
+      <p><code>pontos // 5</code> is whole-number division: 0 to 4 points give 0, 5 to 9 give 1, and so on, so the fly speed goes up by one every 5 points. It's a shorter way to make levels than an <code>if</code> chain, and the <code>if</code> chain is easier to tune by hand. Both are good choices.</p>
+
+      <section class="post-end">
+        <h2>Obrigado, Nilsan!</h2>
+        <p>Thank you for the frog. Go and play Chá Preto, see how far you get, then make a game in your own language and share it to the gallery.</p>
+        <a class="btn btn-primary btn-lg" href="https://play.pyweblib.org/game/?id=ae2c1a35-059f-4b7e-b032-b2fb5b698859">Play Chá Preto</a>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>
+        <strong>PyWebLib</strong> is free and open source, built on
+        <a href="https://pyodide.org" target="_blank" rel="noopener">Pyodide</a>. MIT licensed.
+      </p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="https://play.pyweblib.org/">Playground</a>
+        <a href="/weblog/">WeBlog</a>
+        <a href="https://play.pyweblib.org/about/">About</a>
+        <a href="https://play.pyweblib.org/privacy/">Privacy</a>
+        <a href="https://play.pyweblib.org/terms/">Terms</a>
+        <a href="https://github.com/SebastianHagemeyer/PyWebLib">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Cloudflare Web Analytics, same beacon and token as the front page. -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "df284b0e1a81489eb9474fb01cad7f34"}'></script>
+</body>
+</html>
